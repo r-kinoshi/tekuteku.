@@ -5,7 +5,7 @@
         <a><img :src="user.photoURL" class="w-8 h-8 rounded-full" alt=""></a>
       </div>
       <div class="user-name leading-loose text-sm">
-        <p class="font-bold">{{ user.displayName }}</p>
+        <p class="font-bold">{{ username }}</p>
       </div>
     </div>
     <div class="post-image w-full">
@@ -13,7 +13,7 @@
     </div>
     <div class="actions my-2 ml-4 flex">
       <img v-if="beLiked" src='/images/heart_active.svg' class="w-6 mr-3">
-      <img v-else src='/images/heart_active.svg' class="w-6 mr-3">
+      <img v-else src='/images/heart.svg' class="w-6 mr-3">
       <p>0</p>
     </div>
     <div class="message mx-4 text-sm">
@@ -24,17 +24,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      user: {
-        displayName: 'rika0123',
-        photoURL: '/images/post0.jpg'
-      },
-      post: {
-        text: '渋谷dayo',
-        image: '/images/post1.jpg'
-      },
-      beLiked: false
+  props: ['post', 'user', 'beLiked'],
+  computed: {
+    username () {
+      return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
     }
   }
 }
