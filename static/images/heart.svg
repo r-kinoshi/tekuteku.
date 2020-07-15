@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="31px" viewBox="0 0 32 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Fill 72</title>
+    <desc>Created with Sketch.</desc>
+    <g id="🔍-Additional-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Line" transform="translate(-108.000000, -875.000000)" fill="#131314">
+            <g id="Icons" transform="translate(107.000000, 93.000000)">
+                <path d="M29,795.682 L17,810 L5,795.623 C3.565,793.629 3,792.282 3,790.438 C3,786.999 5.455,783.904 9,783.875 C11.916,783.851 15.222,786.829 17,789.074 C18.731,786.908 22.084,783.875 25,783.875 C28.451,783.875 31,786.999 31,790.438 C31,792.282 30.553,793.729 29,795.682 L29,795.682 Z M25,782 C21.667,782 19.145,783.956 17,786 C14.957,783.831 12.333,782 9,782 C4.306,782 1,786.036 1,790.438 C1,792.799 1.967,794.499 3.026,796.097 L15.459,811.003 C16.854,812.48 17.118,812.48 18.513,811.003 L30.974,796.097 C32.22,794.499 33,792.799 33,790.438 C33,786.036 29.694,782 25,782 L25,782 Z" id="Fill-72"></path>
+            </g>
+        </g>
+    </g>
+</svg>
