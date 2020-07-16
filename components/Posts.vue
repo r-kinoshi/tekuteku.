@@ -8,7 +8,8 @@
       <div class="back-btn vertical-middle">
         <img src="/images/back.svg" class="h-4">
       </div>
-    <div class="post-btn">
+    <div class="post-btn" @click="post">
+      Post
     </div>
   </div>
   <div class="moda_content p-8">
@@ -23,6 +24,14 @@
       >
     <el-button size="small" type="primary">Click to upload</el-button>
     </el-upload>
+    <el-input
+      type="textarea"
+      :rows="8"
+      placeholder="please input"
+      class="mt-8"
+      v-model="text"
+    >
+    </el-input>
   </div>
  </div>
  </div>
@@ -39,10 +48,19 @@ export default {
   data () {
     return {
       posts: [],
-      imageUrl: null
+      imageUrl: null,
+      text: null
     }
   },
   methods: {
+    async post () {
+      await db.collection('posts').add({
+        text: this.text,
+        image: this.imageUrl,
+        createdAt: new Date().getTime()
+      })
+      window.alert('保存されたよ')
+    },
     async uploadFile (data) {
       const storageRef = firebase.storage().ref()
       const time = new Date().getTime()
@@ -64,3 +82,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.post-btn {
+  color: black;
+  cursor: pointer;
+}
+</style>
