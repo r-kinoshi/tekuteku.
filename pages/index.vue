@@ -4,9 +4,9 @@
      <div class="logo">
        <img src="/images/logo.png" class="w-20 py-2">
      </div>
-     <img src="/images/letter.svg" class="absolute w-6 post">
+     <img src="/images/letter.svg" @click="openModal" class="absolute w-6 post">
    </header>
-   <posts />
+   <posts ref="posts"/>
   </div>
 </template>
 
@@ -17,6 +17,11 @@ import Posts from '~/components/Posts.vue'
 export default {
   components: {
    Posts
+  },
+  methods: {
+    openModal () {
+      this.$refs.posts.openModal()
+    }
   }
 }
 </script>
