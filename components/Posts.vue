@@ -3,9 +3,9 @@
   <div class="posts overflow-scroll mb-24">
     <post v-for="(post, index) in posts" :key="index" :post="post" />
   </div>
-  <div class="modal">
+  <div v-if="modalVisible" class="modal">
     <div class="actions mt-4 flex justify-between px-8">
-      <div class="back-btn vertical-middle">
+      <div class="back-btn vertical-middle" @click="modalVisible = false">
         <img src="/images/back.svg" class="h-4">
       </div>
     <div class="post-btn" @click="post">
@@ -49,7 +49,8 @@ export default {
     return {
       posts: [],
       imageUrl: null,
-      text: null
+      text: null,
+      modalVisible: false
     }
   },
   methods: {
@@ -59,7 +60,13 @@ export default {
         image: this.imageUrl,
         createdAt: new Date().getTime()
       })
+      this.modalVisible = false
+      this.text = null
+      this.imageUrl = null
       window.alert('保存されたよ')
+    },
+    openModal () {
+      this.modalVisible = true
     },
     async uploadFile (data) {
       const storageRef = firebase.storage().ref()
