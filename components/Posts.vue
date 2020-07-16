@@ -19,10 +19,14 @@ export default {
       posts: []
     }
   },
-  async mounted () {
-    const snapshot = await db.collection('posts').get()
-    snapshot.forEach((doc) => {
-      this.posts.push(doc.data())
+  mounted () {
+    db.collection('posts').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc
+        if (change.type === 'added') {
+          this.posts.unshift({ id: doc.id, ...doc.data() })
+        }
+      })
     })
   }
 }
