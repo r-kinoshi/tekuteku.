@@ -9,7 +9,7 @@
      </div>
    </div>
    <div class="follow-btn vertical-middle">
-     <button>Follow</button>
+     <el-button>Follow</el-button>
    </div>
  </div>
 </template>

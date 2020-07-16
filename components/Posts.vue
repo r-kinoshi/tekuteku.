@@ -1,14 +1,36 @@
 <template>
  <div>
-   <div class="posts overflow-scroll mb-24">
-     <post v-for="(post, index) in posts" :key="index" :post="post" />
-   </div>
+  <div class="posts overflow-scroll mb-24">
+    <post v-for="(post, index) in posts" :key="index" :post="post" />
+  </div>
+  <div class="modal">
+    <div class="actions mt-4 flex justify-between px-8">
+      <div class="back-btn vertical-middle">
+        <img src="/images/back.svg" class="h-4">
+      </div>
+    <div class="post-btn">
+    </div>
+  </div>
+  <div class="moda_content p-8">
+    <div class="flex justify-center">
+      <img :src="imageUrl" class="uploaded-image">
+    </div>
+    <el-upload
+      v-if="!imageUrl"
+      action=""
+      :show-file-list="false"
+      :http-request="uploadFile"
+      >
+    <el-button size="small" type="primary">Click to upload</el-button>
+    </el-upload>
+  </div>
+ </div>
  </div>
 </template>
 
 <script>
 import Post from '~/components/Post.vue'
-import { db } from '~/plugins/firebase'
+import { db, firebase } from '~/plugins/firebase'
 
 export default {
   components: {
@@ -16,7 +38,18 @@ export default {
   },
   data () {
     return {
-      posts: []
+      posts: [],
+      imageUrl: null
+    }
+  },
+  methods: {
+    async uploadFile (data) {
+      const storageRef = firebase.storage().ref()
+      const time = new Date().getTime()
+      const ref = storageRef.child(`posts/${time}_${data.file.name}`)
+      const snapshot = await ref.put(data.file)
+      const url = await snapshot.ref.getDownloadURL()
+      this.imageUrl = url
     }
   },
   mounted () {
