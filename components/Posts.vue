@@ -64,8 +64,15 @@ export default {
       posts: [],
       imageUrl: null,
       text: null,
-      modalVisible: false,
-      isAuthenticated: false
+      modalVisible: false
+    }
+  },
+   computed: {
+    currentUser () {
+      return this.$store.state.user
+    },
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
     }
   },
   methods: {
@@ -74,7 +81,7 @@ export default {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithPopup(provider)
         .then((result) => {
-          this.isAuthenticated = true
+          this.setUser(result.user)
         }).catch((error) => {
           window.alert(error)
         })

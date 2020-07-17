@@ -35,6 +35,9 @@ export default {
     }
   },
   computed: {
+     currentUser () {
+      return this.$store.state.user
+    },
     username () {
       return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
     }
