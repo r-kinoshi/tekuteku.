@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setuser']),
+    ...mapMutations(['setUser']),
     login () {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithPopup(provider)
