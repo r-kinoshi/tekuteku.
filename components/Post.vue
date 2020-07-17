@@ -14,7 +14,7 @@
     <div class="actions my-2 ml-4 flex">
       <img v-if="beLiked" src='/images/heart_active.svg' @click="unlike" class="w-6 mr-3">
       <img v-else src='/images/heart.svg' @click="like" class="w-6 mr-3">
-      <p>0</p>
+      <p>{{ likeCount }}</p>
     </div>
     <div class="message mx-4 text-sm">
       <p>{{ post.text }}</p>
@@ -33,12 +33,17 @@ export default {
         displayName: 'rika0123',
         photoURL: '/images/post1.jpg'
       },
+      likeCount: 0,
       beLiked: false
     }
   },
   mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
+
+    this.likeRef.onSnapshot((snap) => {
+      this.likeCount = snap.size
+    })
   },
   methods: {
     async like () {
