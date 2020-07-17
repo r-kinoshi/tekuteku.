@@ -53,6 +53,7 @@
 <script>
 import Post from '~/components/Post.vue'
 import { db, firebase } from '~/plugins/firebase'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -64,15 +65,23 @@ export default {
       imageUrl: null,
       text: null,
       modalVisible: false,
-      isAuthenticated: false
+    }
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.user
+    },
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
     }
   },
   methods: {
+    ...mapMutations(['setuser']),
     login () {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithPopup(provider)
         .then((result) => {
-          this.isAuthenticated = true
+          this.setUser(result.user)
         }).catch((error) => {
           window.alert(error)
         })
