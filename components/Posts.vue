@@ -53,7 +53,7 @@
 <script>
 import Post from '~/components/Post.vue'
 import { db, firebase } from '~/plugins/firebase'
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setUser']),
+    ...mapActions(['setUser']),
     login () {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithPopup(provider)
