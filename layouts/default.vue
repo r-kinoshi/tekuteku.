@@ -7,11 +7,23 @@
 
 <script>
 import AppFooter from '~/components/Footer.vue'
+import { firebase } from '~/plugins/firebase'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     AppFooter
-  }
+  },
+  methods: {
+    ...mapActions(['setUser'])
+  },
+  mounted () {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setUser(user)
+      }
+    })
+  },
 }
 </script>
 
