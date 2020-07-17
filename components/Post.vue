@@ -1,6 +1,5 @@
 <template>
   <div class="post my-6">
-    <p>{{currentUser.email}}</p>
     <div class="user mb-2 ml-4 flex">
       <div class="avatar mr-3">
         <a><img :src="user.photoURL" class="w-8 h-8 rounded-full" alt=""></a>
@@ -36,9 +35,6 @@ export default {
     }
   },
   computed: {
-    currentUser () {
-      return this.$store.state.user
-    },
     username () {
       return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
     }
