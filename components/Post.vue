@@ -12,8 +12,8 @@
       <img :src="post.image" alt="">
     </div>
     <div class="actions my-2 ml-4 flex">
-      <img v-if="beLiked" src='/images/heart_active.svg' class="w-6 mr-3">
-      <img v-else src='/images/heart.svg' class="w-6 mr-3">
+      <img v-if="beLiked" src='/images/heart_active.svg' @click="unlike" class="w-6 mr-3">
+      <img v-else src='/images/heart.svg' @click="like" class="w-6 mr-3">
       <p>0</p>
     </div>
     <div class="message mx-4 text-sm">
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { db } from '~/plugins/firebase'
+
 export default {
   props: ['post'],
   data () {
@@ -32,6 +34,24 @@ export default {
         photoURL: '/images/post1.jpg'
       },
       beLiked: false
+    }
+  },
+  mounted () {
+    this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
+    this.checkLikeStatus()
+  },
+  methods: {
+    async like () {
+      await this.likeRef.doc(this.currentUser.uid).set({ uid: this.currentUser.uid})
+      this.beLiked = true
+    },
+    async unlike () {
+      await this.likeRef.doc(this.currentUser.uid).delete()
+      this.beLiked = false
+    },
+    async checkLikeStatus () {
+      const doc = await this.likeRef.doc(this.currentUser.uid).get()
+      this.beLiked = doc.exists
     }
   },
   computed: {
