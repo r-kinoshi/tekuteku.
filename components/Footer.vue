@@ -3,11 +3,24 @@
     <div class="nav-item w-1/3 flex justify-center">
       <nuxt-link to="/"><img src="/images/home.svg" class="h-6 my-3"></nuxt-link>
     </div>
-    <div class="nav-item w-1/3 flex justify-center">
+    <div v-if="isAuthenticated" class="nav-item w-1/3 flex justify-center">
       <nuxt-link to="/users"><img src="/images/follow.svg" class="h-6 my-3"></nuxt-link>
     </div>
-    <div class="nav-item w-1/3 flex justify-center">
-      <nuxt-link to="/users/id"><img src="/images/profile.svg" class="h-6 my-3"></nuxt-link>
+    <div v-if="isAuthenticated" class="nav-item w-1/3 flex justify-center">
+      <nuxt-link :to="`/users/${currentUser.uid}`"><img src="/images/profile.svg" class="h-6 my-3"></nuxt-link>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    currentUser () {
+      return this.$store.state.user
+    },
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
+    }
+  }
+}
+</script>
