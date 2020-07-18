@@ -1,6 +1,6 @@
 <template>
   <div class="post my-6">
-    <div class="user mb-2 ml-4 flex">
+    <div class="user mb-2 ml-4 flex" v-if="!isProfileMode">
       <div class="avatar mr-3">
         <a><img :src="user.photoURL" class="w-8 h-8 rounded-full" alt=""></a>
       </div>
@@ -26,7 +26,7 @@
 import { db } from '~/plugins/firebase'
 
 export default {
-  props: ['post'],
+  props: ['post', 'mode'],
   data () {
     return {
       user: {
@@ -65,6 +65,9 @@ export default {
     },
     username () {
       return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
+    },
+    isProfileMode () {
+      return this.mode === 'profile'
     }
   }
 }
