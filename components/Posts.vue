@@ -90,7 +90,8 @@ export default {
       await db.collection('posts').add({
         text: this.text,
         image: this.imageUrl,
-        createdAt: new Date().getTime()
+        createdAt: new Date().getTime(),
+        userId: this.currentUser.uid
       })
       this.modalVisible = false
       this.text = null
