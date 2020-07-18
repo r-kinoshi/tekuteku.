@@ -37,15 +37,22 @@ export default {
       beLiked: false
     }
   },
-  mounted () {
+  async mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
+
+    this.fetchUser()
 
     this.likeRef.onSnapshot((snap) => {
       this.likeCount = snap.size
     })
   },
   methods: {
+    async fetchUser () {
+      const userId = this.post.userId
+      const doc = await db.collection('users').doc(userId).get()
+      this.user = doc.data()
+    },
     async like () {
       await this.likeRef.doc(this.currentUser.uid).set({ uid: this.currentUser.uid})
       this.beLiked = true
