@@ -9,7 +9,7 @@
          <p>{{ user.displayName }}</p>
        </div>
      </div>
-     <button class="text-sm" @click="logout">ログアウト</button>
+     <button v-if="isCurrentUser" class="text-sm" @click="logout">ログアウト</button>
    </div>
    <div class="tab flex justify-around">
      <div class="post-count text-center">
@@ -60,6 +60,16 @@ export default {
         .catch((error) => {
           window.alert(error)
         })
+    }
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.user
+    },
+    isCurrentUser () {
+      if (this.currentUser) {
+        return this.currentUser.uid == this.$route.params.id
+      }
     }
   },
   async mounted () {
