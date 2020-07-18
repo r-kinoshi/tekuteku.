@@ -1,11 +1,15 @@
 <template>
   <div class="post my-6">
-    <div class="user mb-2 ml-4 flex">
+    <div class="user mb-2 ml-4 flex" v-if="!isProfileMode">
       <div class="avatar mr-3">
-        <a><img :src="user.photoURL" class="w-8 h-8 rounded-full" alt=""></a>
+        <nuxt-link :to="`/users/${user.id}`">
+          <img :src="user.photoURL" class="w-8 h-8 rounded-full" alt="">
+        </nuxt-link>
       </div>
       <div class="user-name leading-loose text-sm">
-        <p class="font-bold">{{ username }}</p>
+        <nuxt-link :to="`/users/${user.id}`">
+          <p class="font-bold">{{ username }}</p>
+       </nuxt-link>
       </div>
     </div>
     <div class="post-image w-full">
@@ -26,26 +30,34 @@
 import { db } from '~/plugins/firebase'
 
 export default {
-  props: ['post'],
+  props: ['post', 'mode'],
   data () {
     return {
       user: {
-        displayName: 'rika0123',
-        photoURL: '/images/post1.jpg'
+        id: '',
+        displayName: '',
+        photoURL: ''
       },
       likeCount: 0,
       beLiked: false
     }
   },
-  mounted () {
+  async mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
+
+    this.fetchUser()
 
     this.likeRef.onSnapshot((snap) => {
       this.likeCount = snap.size
     })
   },
   methods: {
+    async fetchUser () {
+      const userId = this.post.userId
+      const doc = await db.collection('users').doc(userId).get()
+      this.user = { ...doc.data(), id: userId }
+    },
     async like () {
       await this.likeRef.doc(this.currentUser.uid).set({ uid: this.currentUser.uid})
       this.beLiked = true
@@ -65,6 +77,9 @@ export default {
     },
     username () {
       return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
+    },
+    isProfileMode () {
+      return this.mode === 'profile'
     }
   }
 }
