@@ -9,7 +9,7 @@
          <p>rika123</p>
        </div>
      </div>
-     <button class="text-sm">ログアウト</button>
+     <button class="text-sm" @click="logout">ログアウト</button>
    </div>
    <div class="tab flex justify-around">
      <div class="post-count text-center">
@@ -30,3 +30,23 @@
    </div>
  </div>
 </template>
+
+<script>
+import { firebase } from '~/plugins/firebase'
+import { mapActions } from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions(['setUser']),
+    logout () {
+      firebase.auth().signOut()
+        .then(() => {
+          this.setUser(null)
+        })
+        .catch((error) => {
+          window.alert(error)
+        })
+    }
+  }
+}
+</script>
