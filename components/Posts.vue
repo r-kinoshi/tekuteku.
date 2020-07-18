@@ -110,7 +110,7 @@ export default {
     }
   },
   mounted () {
-    db.collection('posts').onSnapshot((snapshot) => {
+    db.collection('posts').orderBy('createdAt').onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const doc = change.doc
         if (change.type === 'added') {
