@@ -7,7 +7,9 @@
         </nuxt-link>
       </div>
       <div class="user-name leading-loose text-sm">
-        <p class="font-bold">{{ username }}</p>
+        <nuxt-link :to="`/users/${user.id}`">
+          <p class="font-bold">{{ username }}</p>
+       </nuxt-link>
       </div>
     </div>
     <div class="post-image w-full">
