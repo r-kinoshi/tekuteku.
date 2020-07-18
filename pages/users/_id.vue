@@ -3,10 +3,10 @@
    <div class="user flex justify-between px-8 my-8">
      <div class="flex">
        <div class="user-avatar mr-4">
-         <img src="/images/post1.jpg" class="w-12 h-12 rounded-full">
+         <img :src="user.photoURL" class="w-12 h-12 rounded-full">
        </div>
        <div class="user-name vertical-middle">
-         <p>rika123</p>
+         <p>{{ user.displayName }}</p>
        </div>
      </div>
      <button class="text-sm" @click="logout">ログアウト</button>
@@ -28,14 +28,28 @@
        <span class="text-xs">0</span>
      </div>
    </div>
+   <post v-for="post in posts" :key="post.id" :post="post" :mode="'profile'"/>
  </div>
 </template>
 
 <script>
-import { firebase } from '~/plugins/firebase'
+import { firebase,db } from '~/plugins/firebase'
 import { mapActions } from 'vuex'
+import Post from '~/components/Post'
 
 export default {
+  components: {
+    Post
+  },
+  data () {
+    return {
+      user: {
+        displayName: '',
+        photoURL: ''
+      },
+      posts: []
+    }
+  },
   methods: {
     ...mapActions(['setUser']),
     logout () {
@@ -47,6 +61,16 @@ export default {
           window.alert(error)
         })
     }
+  },
+  async mounted () {
+    const userId = this.$route.params.id
+    const doc = await db.collection('users').doc(userId).get()
+    this.user = doc.data()
+
+    const snapshot = await db.collection('posts').where('userId', '==', userId).get()
+    snapshot.forEach((doc) => {
+      this.posts.push({ id: doc.id, ...doc.data() })
+    })
   }
 }
 </script>
