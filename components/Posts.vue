@@ -75,6 +75,18 @@ export default {
       return this.$store.getters.isAuthenticated
     }
   },
+  mounted () {
+    if (this.currentUser) {
+      this.watchPostsChange()
+    }
+  },
+  watch: {
+    currentUser (user) {
+      if (user) {
+        this.watchPostsChange()
+      }
+    }
+  },
   methods: {
     ...mapActions(['setUser']),
     login () {
@@ -108,17 +120,23 @@ export default {
       const snapshot = await ref.put(data.file)
       const url = await snapshot.ref.getDownloadURL()
       this.imageUrl = url
-    }
-  },
-  mounted () {
-    db.collection('posts').orderBy('createdAt').onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        const doc = change.doc
-        if (change.type === 'added') {
-          this.posts.unshift({ id: doc.id, ...doc.data() })
-        }
+    },
+    async watchPostsChange () {
+      const snapshot = await db.collection('users').doc(this.currentUser.uid).collection('followings').get()
+      const followings = [this.currentUser.uid]
+      snapshot.forEach((doc) => {
+        followings.push(doc.id)
       })
-    })
+
+      db.collection('posts').where('userId', 'in', followings).orderBy('createdAt').onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const doc = change.doc
+          if (change.type === 'added') {
+            this.posts.unshift({ id: doc.id, ...doc.data() })
+          }
+        })
+      })
+    }
   }
 }
 </script>
