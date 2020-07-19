@@ -15,17 +15,17 @@
      <div class="post-count text-center">
        Post
        </br>
-       <span class="text-xs">0</span>
+       <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
        Following
        </br>
-       <span class="text-xs">0</span>
+       <span class="text-xs">{{ followingCount }}</span>
      </div>
      <div class="text-center">
        Follower
        </br>
-       <span class="text-xs">0</span>
+       <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
    <post v-for="post in posts" :key="post.id" :post="post" :mode="'profile'"/>
@@ -43,6 +43,8 @@ export default {
   },
   data () {
     return {
+      followingCount: 0,
+      followerCount: 0,
       user: {
         displayName: '',
         photoURL: ''
@@ -52,6 +54,16 @@ export default {
   },
   methods: {
     ...mapActions(['setUser']),
+    async fetchFollowingCount () {
+      const userID = this.$route.params.id
+      const snap = await db.collection('users').doc(userID).collection('followings').get()
+      this.followingCount = snap.size
+    },
+     async fetchFollowerCount () {
+      const userID = this.$route.params.id
+      const snap = await db.collection('users').doc(userID).collection('followers').get()
+      this.followerCount = snap.size
+    },
     logout () {
       firebase.auth().signOut()
         .then(() => {
@@ -81,6 +93,10 @@ export default {
     snapshot.forEach((doc) => {
       this.posts.push({ id: doc.id, ...doc.data() })
     })
+
+    this.fetchFollowingCount()
+    this.fetchFollowerCount()
+
   }
 }
 </script>

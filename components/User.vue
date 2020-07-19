@@ -10,17 +10,24 @@
        <nuxt-link :to="`/users/${user.uid}`">
         <p>{{ user.displayName }}</p>
        </nuxt-link>
-
      </div>
    </div>
    <div class="follow-btn vertical-middle" v-if="!isCurrentUser">
-     <el-button>Follow</el-button>
+     <el-button v-if="!followed" @click="follow">Follow</el-button>
+     <el-button v-else @click="unfollow">Unfollow</el-button>
    </div>
  </div>
 </template>
 
 <script>
+import { db } from '~/plugins/firebase'
+
   export default {
+    data () {
+      return {
+        followed: false
+      }
+    },
     props: ['user'],
     computed: {
       currentUser () {
@@ -28,6 +35,24 @@
       },
       isCurrentUser () {
         return this.currentUser.uid === this.user.id
+      }
+    },
+    async mounted () {
+      this.followingRef = db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id)
+      this.followerRef = db.collection('users').doc(this.user.id).collection('followers').doc(this.currentUser.uid)
+      const doc = await this.followingRef.get()
+      this.followed = doc.exists
+    },
+    methods: {
+      async follow () {
+        await this.followingRef.set({user: this.user.id})
+        await this.followerRef.set({ user: this.currentUser.uid})
+        this.followed = true
+     },
+      async unfollow () {
+        await this.followingRef.delete()
+        await  this.followerRef.delete()
+        this.followed = false
       }
     }
   }
