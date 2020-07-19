@@ -37,6 +37,10 @@ import { db } from '~/plugins/firebase'
         return this.currentUser.uid === this.user.id
       }
     },
+    async mounted () {
+      const doc = await db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id).get()
+      this.followed = doc.exists
+    },
     methods: {
       async follow () {
         await db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id).set({user: this.user.id})
