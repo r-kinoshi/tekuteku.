@@ -15,7 +15,7 @@
      <div class="post-count text-center">
        Post
        </br>
-       <span class="text-xs">0</span>
+       <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
        Following
