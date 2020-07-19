@@ -38,18 +38,20 @@ import { db } from '~/plugins/firebase'
       }
     },
     async mounted () {
-      const doc = await db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id).get()
+      this.followingRef = db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id)
+      this.followerRef = db.collection('users').doc(this.user.id).collection('followers').doc(this.currentUser.uid)
+      const doc = await this.followingRef.get()
       this.followed = doc.exists
     },
     methods: {
       async follow () {
-        await db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id).set({user: this.user.id})
-        await db.collection('users').doc(this.user.id).collection('followers').doc(this.currentUser.uid).set({ user: this.currentUser.uid})
+        await this.followingRef.set({user: this.user.id})
+        await this.followerRef.set({ user: this.currentUser.uid})
         this.followed = true
      },
       async unfollow () {
-        await db.collection('users').doc(this.currentUser.uid).collection('followings').doc(this.user.id).delete()
-        await db.collection('users').doc(this.user.id).collection('followers').doc(this.currentUser.uid).delete()
+        await this.followingRef.delete()
+        await  this.followerRef.delete()
         this.followed = false
       }
     }
