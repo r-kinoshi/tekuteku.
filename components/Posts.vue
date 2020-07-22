@@ -1,6 +1,6 @@
 <template>
  <div>
-  <div class="posts overflow-scroll mb-24">
+  <div class="posts overflow-scroll z-0 mb-24">
     <post v-for="(post, index) in posts" :key="index" :post="post" />
   </div>
   <div v-if="isAuthenticated && modalVisible" class="modal">
@@ -34,17 +34,31 @@
       </el-input>
     </div>
   </div>
-  <div v-else-if="!isAuthenticated && modalVisible" class="modal">
-    <div class="actions mt-4 flex justify-between px-8">
-      <div class="back-btn vertical-middle" @click="modalVisible = false">
-        <img src="/images/back.svg" class="h-4">
+  <div v-else-if="!isAuthenticated && modalVisible" class="modal-overlay">
+    <div class="modal_content p-8 md:sm:w-1/4 h-hull bg-white z-20 rounded fixed my-0">
+        <div class="close-btn" @click="modalVisible = false">
+          <img src="/images/x (1).svg">
+        </div>
+      <div class="flex justify-center m-1">
+        <div>
+          <ul>
+            <li>メールアドレス</li>
+            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="email" v-model="mailaddress"/></li>
+            <li>パスワード</li>
+            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="password" v-model="password"/></li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="modal_content p-8 w-full h-full relative">
-      <div class="flex justify-center">
-        <img src="/images/logo.png" class="w-32 my-32">
+      <div class="flex justify-center m-10">
+        <button class="ustify-center bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 w-64 px-4 rounded-full">
+        かんたんログイン
+        </button>
       </div>
-      <el-button size="small" type="primary" @click="login">login</el-button>
+      <div class="flex justify-center m-10">
+        <button class="ustify-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 w-64 px-4 rounded-full" @click="login">
+        twitterログイン
+        </button>
+      </div>
     </div>
   </div>
  </div>
@@ -64,7 +78,9 @@ export default {
       posts: [],
       imageUrl: null,
       text: null,
-      modalVisible: false
+      modalVisible: false,
+      mailaddress: 'guests@example.com',
+      password: '7777777'
     }
   },
    computed: {
@@ -142,8 +158,10 @@ export default {
 </script>
 
 <style>
+
 .post-btn {
   color: black;
   cursor: pointer;
 }
+
 </style>
