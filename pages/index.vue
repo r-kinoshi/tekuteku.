@@ -2,7 +2,7 @@
   <div>
     <header class="flex justify-center border-b border-gray-300">
      <div class="logo">
-       <img src="/images/logo.png" class="w-20 py-2">
+       <img src="/images/tekuteku_top.png">
      </div>
      <img src="/images/letter.svg" @click="openModal" class="absolute w-6 post">
    </header>
