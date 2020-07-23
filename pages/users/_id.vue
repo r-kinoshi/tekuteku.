@@ -3,9 +3,9 @@
    <div class="user flex justify-between px-8 my-8">
      <div class="flex">
        <div class="user-avatar mr-4">
-         <img :src="user.photoURL" class="w-12 h-12 rounded-full">
+         <img :src="user.photoURL" v-if="nullIcon" class="w-12 h-12 rounded-full">
        </div>
-       <div class="user-name vertical-middle">
+       <div class="user-name vertical-middle" v-if="nullName">
          <p>{{ user.displayName }}</p>
        </div>
      </div>
@@ -81,6 +81,16 @@ export default {
     isCurrentUser () {
       if (this.currentUser) {
         return this.currentUser.uid == this.$route.params.id
+      }
+    },
+    nullIcon () {
+      if (this.user.photoURL == null) {
+        return this.user.photoURL = '/images/icon(2).png'
+      }
+    },
+    nullName () {
+      if (this.user.displayName == null) {
+        return this.user.displayName = 'guests'
       }
     }
   },

@@ -43,14 +43,14 @@
         <div>
           <ul>
             <li>メールアドレス</li>
-            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="email" v-model="mailaddress"/></li>
+            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="email" v-model="email"/></li>
             <li>パスワード</li>
             <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="password" v-model="password"/></li>
           </ul>
         </div>
       </div>
       <div class="flex justify-center m-10">
-        <button class="ustify-center bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 w-64 px-4 rounded-full">
+        <button class="ustify-center bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 w-64 px-4 rounded-full" @click="guestsLogin">
         かんたんログイン
         </button>
       </div>
@@ -79,7 +79,7 @@ export default {
       imageUrl: null,
       text: null,
       modalVisible: false,
-      mailaddress: 'guests@example.com',
+      email: 'guests@example.com',
       password: '7777777'
     }
   },
@@ -108,6 +108,14 @@ export default {
     login () {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          this.setUser(result.user)
+        }).catch((error) => {
+          window.alert(error)
+        })
+    },
+    guestsLogin () {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then((result) => {
           this.setUser(result.user)
         }).catch((error) => {
