@@ -27,8 +27,9 @@
         <option
           v-for="r of restaurants"
           :key="r.id"
+          :value="r.name"
         >
-       <a :href="r.url">{{ r.name }}</a>
+       {{ r.name }}
         </option>
       </datalist>
       <el-upload
@@ -98,6 +99,7 @@ export default {
       imageUrl: null,
       text: null,
       restaurantsName: null,
+      restaurantsUrl: null,
       modalVisible: false,
       email: 'guests@example.com',
       password: '7777777',
@@ -159,11 +161,28 @@ export default {
         this.restaurants = rest
       }
     }),
+    getRestaurantsByName (name) {
+      for(let r in this.restaurants) {
+      console.log(this.restaurants[r])
+      const restaurant = this.restaurants[r]
+      console.log(restaurant.name)
+        if (restaurant.name == name){
+          console.log('一致しました')
+          return restaurant
+        }
+      }
+    },
     async post () {
+      const restaurant = this.getRestaurantsByName(this.restaurantsName)
+      console.log(restaurant.url)
+      this.restaurantsUrl = restaurant.url
+      console.log( this.restaurantsUrl)
+
       await db.collection('posts').add({
         text: this.text,
         image: this.imageUrl,
         restaurantsName: this.restaurantsName,
+        restaurantsUrl: this.restaurantsUrl,
         createdAt: new Date().getTime(),
         userId: this.currentUser.uid
       })
@@ -171,6 +190,7 @@ export default {
       this.text = null
       this.imageUrl = null
       this.restaurantsName = null
+      this.restaurantsUrl = null
       window.alert('保存されたよ')
     },
     openModal () {
