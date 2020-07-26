@@ -7,7 +7,7 @@
       <nuxt-link to="/users"><img src="/images/search (3).svg" class="h-6 my-3"></nuxt-link>
     </div>
     <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
-      <nuxt-link to="/users"><img src="/images/follow.svg" class="h-6 my-3"></nuxt-link>
+      <img src="/images/follow.svg" class="h-6 my-3">
     </div>
      <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
       <nuxt-link to="/users"><img src="/images/heart (1).svg" class="h-6 my-3"></nuxt-link>
