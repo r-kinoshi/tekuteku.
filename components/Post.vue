@@ -12,6 +12,7 @@
        </nuxt-link>
       </div>
     </div>
+    <a class="font-bold" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
     <div class="post-image w-full">
       <img :src="post.image" alt="">
     </div>

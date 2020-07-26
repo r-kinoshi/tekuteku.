@@ -13,9 +13,25 @@
       </div>
     </div>
     <div class="moda_content p-8">
-      <div class="flex justify-center">
-        <img :src="imageUrl" class="uploaded-image">
-      </div>
+      <input
+        class="shadow appearance-none border rounded py-2 px-3 w-64 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="店舗名"
+        @input="handleChange"
+        autocomplete="on"
+        list="restaurants"
+        v-model="restaurantsName"
+      />
+      <div class="mt-2" />
+      <datalist id="restaurants"  v-if="!fetching">
+        <option
+          v-for="r of restaurants"
+          :key="r.id"
+          :value="r.name"
+        >
+       {{ r.name }}
+        </option>
+      </datalist>
       <el-upload
         v-if="!imageUrl"
         action=""
@@ -24,14 +40,16 @@
         >
         <el-button size="small" type="primary">Click to upload</el-button>
       </el-upload>
-      <el-input
-        type="textarea"
-        :rows="8"
-        placeholder="please input"
+      <div class="flex justify-center">
+        <img :src="imageUrl" class="uploaded-image">
+      </div>
+       <textarea
         class="mt-8"
+        :rows="5"
+        :cols="50"
+        placeholder="please input"
         v-model="text"
-      >
-      </el-input>
+      />
     </div>
   </div>
   <div v-else-if="!isAuthenticated && modalVisible" class="modal-overlay">
@@ -68,6 +86,8 @@
 import Post from '~/components/Post.vue'
 import { db, firebase } from '~/plugins/firebase'
 import { mapActions } from 'vuex'
+import { throttle } from 'throttle-debounce'
+
 
 export default {
   components: {
@@ -78,9 +98,13 @@ export default {
       posts: [],
       imageUrl: null,
       text: null,
+      restaurantsName: null,
+      restaurantsUrl: null,
       modalVisible: false,
       email: 'guests@example.com',
-      password: '7777777'
+      password: '7777777',
+      fetching: true,
+      restaurants: []
     }
   },
    computed: {
@@ -122,16 +146,51 @@ export default {
           window.alert(error)
         })
     },
+     handleChange: throttle(1000, async function (e) {
+      this.fetching = true
+      const name = e.data
+      const urlParams = new URLSearchParams()
+      urlParams.append('keyid' ,process.env.GNAVI_API_KEY)
+      urlParams.append('name', name)
+      const res = await fetch(
+        `https://api.gnavi.co.jp/RestSearchAPI/v3/?${urlParams.toString()}`
+      )
+      this.fetching = false
+      if (res.ok) {
+        const { rest } = await res.json()
+        this.restaurants = rest
+      }
+    }),
+    getRestaurantsByName (name) {
+      for(let r in this.restaurants) {
+      console.log(this.restaurants[r])
+      const restaurant = this.restaurants[r]
+      console.log(restaurant.name)
+        if (restaurant.name == name){
+          console.log('一致しました')
+          return restaurant
+        }
+      }
+    },
     async post () {
+      const restaurant = this.getRestaurantsByName(this.restaurantsName)
+      console.log(restaurant.url)
+      this.restaurantsUrl = restaurant.url
+      console.log( this.restaurantsUrl)
+
       await db.collection('posts').add({
         text: this.text,
         image: this.imageUrl,
+        restaurantsName: this.restaurantsName,
+        restaurantsUrl: this.restaurantsUrl,
         createdAt: new Date().getTime(),
         userId: this.currentUser.uid
       })
       this.modalVisible = false
       this.text = null
       this.imageUrl = null
+      this.restaurantsName = null
+      this.restaurantsUrl = null
       window.alert('保存されたよ')
     },
     openModal () {
@@ -165,11 +224,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .post-btn {
   color: black;
   cursor: pointer;
+}
+
+.cover-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.list-item {
+  min-width: 500px;
+  width: 500px;
 }
 
 </style>
