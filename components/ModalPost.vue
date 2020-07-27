@@ -6,29 +6,30 @@
         <img src="/images/back.svg" class="h-4" @click="closePost">
       </div>
       <div class="post-btn" @click="post">
-        Post
+        シェア
       </div>
     </div>
     <div class="moda_content p-8">
-      <input
-        class="shadow appearance-none border rounded py-2 px-3 w-64 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text"
-        placeholder="店舗名"
-        @input="handleChange"
-        autocomplete="on"
-        list="restaurants"
-        v-model="restaurantsName"
-      />
-      <div class="mt-2" />
-      <datalist id="restaurants"  v-if="!fetching">
-        <option
-          v-for="r of restaurants"
-          :key="r.id"
-          :value="r.name"
-        >
-      {{ r.name }}
-        </option>
-      </datalist>
+      <div class="flex justify-center p-8">
+        <input
+          class="shadow appearance-none border rounded py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="店舗名"
+          @input="handleChange"
+          autocomplete="on"
+          list="restaurants"
+          v-model="restaurantsName"
+        />
+        <datalist id="restaurants"  v-if="!fetching">
+          <option
+            v-for="r of restaurants"
+            :key="r.id"
+            :value="r.name"
+          >
+        {{ r.name }}
+          </option>
+        </datalist>
+      </div>
       <el-upload
         v-if="!imageUrl"
         action=""
@@ -43,7 +44,7 @@
       <textarea
         class="mt-8"
         :rows="5"
-        :cols="50"
+        :cols="40"
         placeholder="please input"
         v-model="text"
       />
@@ -85,9 +86,7 @@ export default {
   methods: {
     async post () {
       const restaurant = this.getRestaurantsByName(this.restaurantsName)
-      console.log(restaurant.url)
       this.restaurantsUrl = restaurant.url
-      console.log( this.restaurantsUrl)
 
       await db.collection('posts').add({
         text: this.text,
@@ -97,12 +96,11 @@ export default {
         createdAt: new Date().getTime(),
         userId: this.currentUser.uid
       })
-      this.$emit('update:appear', false)
+      this.$emit('update:modal', false)
       this.text = null
       this.imageUrl = null
       this.restaurantsName = null
       this.restaurantsUrl = null
-      window.alert('保存されたよ')
     },
     closePost () {
       this.$emit('update:modal', false)
@@ -124,11 +122,8 @@ export default {
     }),
     getRestaurantsByName (name) {
       for(let r in this.restaurants) {
-      console.log(this.restaurants[r])
       const restaurant = this.restaurants[r]
-      console.log(restaurant.name)
         if (restaurant.name == name){
-          console.log('一致しました')
           return restaurant
         }
       }

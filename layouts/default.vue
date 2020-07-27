@@ -85,7 +85,7 @@ html {
 }
 
 .el-button {
- width: 100%;
+ width: 85%;
 }
 
 .modal-overlay {
