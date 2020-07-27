@@ -4,55 +4,57 @@
     <post v-for="(post, index) in posts" :key="index" :post="post" />
   </div>
   <div v-if="isAuthenticated && modalVisible" class="modal">
-    <div class="actions mt-4 flex justify-between px-8">
-      <div class="back-btn vertical-middle" @click="modalVisible = false">
-        <img src="/images/back.svg" class="h-4">
+    <div class="modal_content p-8 md:sm:w-1/4 h-hull bg-white z-20 rounded fixed my-0">
+      <div class="actions mt-4 flex justify-between px-8">
+        <div class="back-btn vertical-middle">
+          <img src="/images/back.svg" class="h-4" @click="modalVisible = false">
+        </div>
+        <div class="post-btn" @click="post">
+          Post
+        </div>
       </div>
-      <div class="post-btn" @click="post">
-        Post
+      <div class="moda_content p-8">
+        <input
+          class="shadow appearance-none border rounded py-2 px-3 w-64 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="店舗名"
+          @input="handleChange"
+          autocomplete="on"
+          list="restaurants"
+          v-model="restaurantsName"
+        />
+        <div class="mt-2" />
+        <datalist id="restaurants"  v-if="!fetching">
+          <option
+            v-for="r of restaurants"
+            :key="r.id"
+            :value="r.name"
+          >
+        {{ r.name }}
+          </option>
+        </datalist>
+        <el-upload
+          v-if="!imageUrl"
+          action=""
+          :show-file-list="false"
+          :http-request="uploadFile"
+          >
+          <el-button size="small" type="primary">Click to upload</el-button>
+        </el-upload>
+        <div class="flex justify-center">
+          <img :src="imageUrl" class="uploaded-image">
+        </div>
+        <textarea
+          class="mt-8"
+          :rows="5"
+          :cols="50"
+          placeholder="please input"
+          v-model="text"
+        />
       </div>
-    </div>
-    <div class="moda_content p-8">
-      <input
-        class="shadow appearance-none border rounded py-2 px-3 w-64 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text"
-        placeholder="店舗名"
-        @input="handleChange"
-        autocomplete="on"
-        list="restaurants"
-        v-model="restaurantsName"
-      />
-      <div class="mt-2" />
-      <datalist id="restaurants"  v-if="!fetching">
-        <option
-          v-for="r of restaurants"
-          :key="r.id"
-          :value="r.name"
-        >
-       {{ r.name }}
-        </option>
-      </datalist>
-      <el-upload
-        v-if="!imageUrl"
-        action=""
-        :show-file-list="false"
-        :http-request="uploadFile"
-        >
-        <el-button size="small" type="primary">Click to upload</el-button>
-      </el-upload>
-      <div class="flex justify-center">
-        <img :src="imageUrl" class="uploaded-image">
-      </div>
-       <textarea
-        class="mt-8"
-        :rows="5"
-        :cols="50"
-        placeholder="please input"
-        v-model="text"
-      />
     </div>
   </div>
-  <div v-else-if="!isAuthenticated && modalVisible" class="modal-overlay">
+  <div v-else-if="!isAuthenticated　&& modalVisible" class="modal-overlay">
     <div class="modal_content p-8 md:sm:w-1/4 h-hull bg-white z-20 rounded fixed my-0">
         <div class="close-btn" @click="modalVisible = false">
           <img src="/images/x (1).svg">
@@ -100,11 +102,11 @@ export default {
       text: null,
       restaurantsName: null,
       restaurantsUrl: null,
-      modalVisible: false,
       email: 'guests@example.com',
       password: '7777777',
       fetching: true,
-      restaurants: []
+      restaurants: [],
+      modalVisible: false
     }
   },
    computed: {
@@ -225,12 +227,6 @@ export default {
 </script>
 
 <style scoped>
-
-.post-btn {
-  color: black;
-  cursor: pointer;
-}
-
 .cover-image {
   width: 100%;
   height: 200px;
