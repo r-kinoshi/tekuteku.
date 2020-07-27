@@ -8,7 +8,7 @@
       <nuxt-link to="/"><img src="/images/home.svg" class="h-6 my-3"></nuxt-link>
     </div>
     <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
-      <nuxt-link to="/users"><img src="/images/search (3).svg" class="h-6 my-3"></nuxt-link>
+      <nuxt-link to="/allPosts"><img src="/images/search (3).svg" class="h-6 my-3"></nuxt-link>
     </div>
     <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
       <img src="/images/follow.svg" class="h-6 my-3" @click="postModal">
