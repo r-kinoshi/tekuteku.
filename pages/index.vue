@@ -4,7 +4,7 @@
      <div class="logo">
        <img src="/images/tekuteku_top.png">
      </div>
-     <img src="/images/letter.svg" @click="openModal" class="absolute w-6 post">
+    <span v-if="!isAuthenticated" class="absolute post" @click="openModal">ログイン</span>
    </header>
    <posts ref="posts"/>
   </div>
@@ -17,6 +17,11 @@ import Posts from '~/components/Posts.vue'
 export default {
   components: {
    Posts
+  },
+  computed: {
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
+    }
   },
   methods: {
     openModal () {
