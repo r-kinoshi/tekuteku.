@@ -73,7 +73,7 @@ export default {
     }
   },
   computed: {
-     currentUser () {
+    currentUser () {
       return this.$store.state.user
     },
     username () {

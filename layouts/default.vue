@@ -54,11 +54,17 @@ html {
 
 
 .modal {
- background:  white;
- width: 100%;
- height: 100%;
- position: fixed;
- top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  opacity: 1;
 }
 
 .uploaded-image {
@@ -71,6 +77,7 @@ html {
  background-color: black;
  color: white;
  font-size: 12px;
+ cursor: pointer;
 }
 
 .el-upload {
