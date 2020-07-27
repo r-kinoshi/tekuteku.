@@ -80,7 +80,7 @@ export default {
         .then((result) => {
           this.setUser(result.user)
         }).catch((error) => {
-          window.alert(error)
+          return error
         })
     },
     guestsLogin () {
@@ -88,7 +88,7 @@ export default {
         .then((result) => {
           this.setUser(result.user)
         }).catch((error) => {
-          window.alert(error)
+          return error
         })
     },
     openModal () {
