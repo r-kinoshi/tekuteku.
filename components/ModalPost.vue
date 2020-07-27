@@ -66,7 +66,6 @@ export default {
   },
   data () {
     return {
-      posts: [],
       imageUrl: null,
       text: null,
       restaurantsName: null,
