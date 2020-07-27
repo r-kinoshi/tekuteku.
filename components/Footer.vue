@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     postModal () {
-      console.log("postmodal押された")
       this.modal = true
     }
   }
