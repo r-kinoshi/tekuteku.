@@ -12,9 +12,9 @@
         <div>
           <ul>
             <li>メールアドレス</li>
-            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="email" v-model="email"/></li>
+            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="email" v-model="email" /></li>
             <li>パスワード</li>
-            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="password" v-model="password"/></li>
+            <li><input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-4 block w-64 appearance-none leading-normal" type="password" v-model="password" /></li>
           </ul>
         </div>
       </div>
@@ -37,8 +37,6 @@
 import Post from '~/components/Post.vue'
 import { db, firebase } from '~/plugins/firebase'
 import { mapActions } from 'vuex'
-import { throttle } from 'throttle-debounce'
-
 
 export default {
   components: {
@@ -47,8 +45,8 @@ export default {
   data () {
     return {
       posts: [],
-      email: 'guests@example.com',
-      password: '7777777',
+      email: 'example@google.com',
+      password: '333333373',
       modalVisible: false
     }
   },
