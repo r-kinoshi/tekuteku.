@@ -8,7 +8,7 @@
       </div>
       <div class="user-name leading-loose text-sm">
         <nuxt-link :to="`/users/${user.id}`">
-          <p class="font-bold">{{ username }}</p>
+          <p class="font-bold">{{ user.displayName }}</p>
        </nuxt-link>
       </div>
     </div>
@@ -75,9 +75,6 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.user
-    },
-    username () {
-      return this.user.displayName.charAt(0).toUpperCase() + this.user.displayName.slice(1)
     },
     isProfileMode () {
       return this.mode === 'profile'

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AppFooter from '~/components/Footer.vue'
+import AppFooter from '~/components/Footer'
 import { firebase,db } from '~/plugins/firebase'
 import { mapActions } from 'vuex'
 
@@ -21,6 +21,11 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setUser(user)
+        if (user.displayName === null || user.photoURL === null) {
+          user.displayName = 'guests'
+          user.photoURL = '/images/icon(2).png'
+          this.setUser(user)
+        }
         db.collection('users').doc(user.uid).set({
           uid: user.uid,
           displayName: user.displayName,
