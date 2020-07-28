@@ -22,7 +22,24 @@
       <p>{{ likeCount }}</p>
     </div>
     <div class="message mx-4 text-sm">
-      <p>{{ post.text }}</p>
+      <nuxt-link :to="`/users/${user.id}`">
+        <span class="font-bold">{{ user.displayName }}</span>
+      </nuxt-link>
+      <span>{{ post.text }}</span>
+    </div>
+    <span class="message mx-4 text-sm">コメント</span>
+    <div class="message mx-4 text-sm">
+      <p>{{ postComment }}</p>
+    </div>
+    <div class="message mx-4 text-sm flex border-t border-gray-30">
+      <textarea
+          class="p-3"
+          :rows="1"
+          :cols="40"
+          placeholder="コメントを追加"
+          v-model="comment"
+      />
+      <button class="font-semibold text-blue-500">投稿する</button>
     </div>
   </div>
 </template>
@@ -40,7 +57,9 @@ export default {
         photoURL: ''
       },
       likeCount: 0,
-      beLiked: false
+      beLiked: false,
+      comment: '',
+      postComment: ''
     }
   },
   async mounted () {
