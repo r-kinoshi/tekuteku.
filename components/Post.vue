@@ -22,7 +22,27 @@
       <p>{{ likeCount }}</p>
     </div>
     <div class="message mx-4 text-sm">
-      <p>{{ post.text }}</p>
+      <nuxt-link :to="`/users/${user.id}`">
+        <span class="font-bold">{{ user.displayName }}</span>
+      </nuxt-link>
+      <span>{{ post.text }}</span>
+    </div>
+    <span class="message mx-4 text-sm">コメント</span>
+    <div class="message mx-4 text-sm">
+      <div v-for="(comment, index) in comments" :key="index" :comment="comment">
+        <span class="font-bold">{{ comment.userName }}</span>
+        <span>{{ comment.comment }}</span>
+      </div>
+    </div>
+    <div class="message mx-4 text-sm flex border-t border-gray-30">
+      <textarea
+          class="p-3"
+          :rows="1"
+          :cols="40"
+          placeholder="コメントを追加"
+          v-model="postComment"
+      />
+      <button class="font-semibold text-blue-500" @click="setComment">投稿する</button>
     </div>
   </div>
 </template>
@@ -40,17 +60,29 @@ export default {
         photoURL: ''
       },
       likeCount: 0,
-      beLiked: false
+      beLiked: false,
+      comment: null,
+      postComment: null,
+      comments: []
     }
   },
   async mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
 
+    this.commentRef = db.collection('posts').doc(this.post.id).collection('comments')
+
     this.fetchUser()
 
     this.likeRef.onSnapshot((snap) => {
       this.likeCount = snap.size
+    })
+
+    this.commentRef.orderBy('createdAt').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc
+        this.comments.push(doc.data())
+      })
     })
   },
   methods: {
@@ -70,6 +102,15 @@ export default {
     async checkLikeStatus () {
       const doc = await this.likeRef.doc(this.currentUser.uid).get()
       this.beLiked = doc.exists
+    },
+    async setComment () {
+      await this.commentRef.add({
+        comment: this.postComment,
+        userName: this.currentUser.displayName,
+        userId: this.currentUser.uid,
+        createdAt: new Date().getTime()
+      })
+      this.postComment = null
     }
   },
   computed: {
