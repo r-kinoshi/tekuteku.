@@ -29,7 +29,10 @@
     </div>
     <span class="message mx-4 text-sm">コメント</span>
     <div class="message mx-4 text-sm">
-      <p>{{ postComment }}</p>
+      <div v-for="(comment, index) in comments" :key="index" :comment="comment">
+        <span class="font-bold">{{ comment.userName }}</span>
+        <span>{{ comment.comment }}</span>
+      </div>
     </div>
     <div class="message mx-4 text-sm flex border-t border-gray-30">
       <textarea
@@ -37,9 +40,9 @@
           :rows="1"
           :cols="40"
           placeholder="コメントを追加"
-          v-model="comment"
+          v-model="postComment"
       />
-      <button class="font-semibold text-blue-500">投稿する</button>
+      <button class="font-semibold text-blue-500" @click="setComment">投稿する</button>
     </div>
   </div>
 </template>
@@ -59,17 +62,27 @@ export default {
       likeCount: 0,
       beLiked: false,
       comment: '',
-      postComment: ''
+      postComment: '',
+      comments: []
     }
   },
   async mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
 
+    this.commentRef = db.collection('posts').doc(this.post.id).collection('comments')
+
     this.fetchUser()
 
     this.likeRef.onSnapshot((snap) => {
       this.likeCount = snap.size
+    })
+
+    this.commentRef.get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        this.comments.push(doc.data())
+      })
     })
   },
   methods: {
@@ -89,6 +102,14 @@ export default {
     async checkLikeStatus () {
       const doc = await this.likeRef.doc(this.currentUser.uid).get()
       this.beLiked = doc.exists
+    },
+    async setComment () {
+      await this.commentRef.add({
+        comment: this.postComment,
+        userName: this.currentUser.displayName,
+        userId: this.currentUser.uid,
+        createdAt: new Date().getTime()
+      })
     }
   },
   computed: {
