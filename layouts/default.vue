@@ -115,4 +115,12 @@ html {
   opacity: 1;
   cursor: pointer;
 }
+
+.outline {
+  outline: solid 1px #0000ff;
+}
+
+.marginCenter {
+  margin: 0 auto;
+}
 </style>
