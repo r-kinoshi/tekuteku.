@@ -1,7 +1,7 @@
 <template>
-  <div class="post my-6">
-    <div class="user mb-2 ml-4 flex" v-if="!isProfileMode">
-      <div class="avatar mr-3">
+  <div class="content">
+    <div class="user my-2 ml-4 flex" v-if="!isProfileMode">
+      <div class="avatar mr-3 border rounded-full border-solid border-black">
         <nuxt-link :to="`/users/${user.id}`">
           <img :src="user.photoURL" class="w-8 h-8 rounded-full" alt="">
         </nuxt-link>
@@ -12,7 +12,7 @@
        </nuxt-link>
       </div>
     </div>
-    <a class="font-bold" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
+    <a class="font-bold px-4" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
     <div class="post-image w-full">
       <img :src="post.image" alt="">
     </div>
@@ -27,24 +27,24 @@
       </nuxt-link>
       <span>{{ post.text }}</span>
     </div>
-    <span class="message mx-4 text-sm">コメント</span>
+    <span class="message mx-4 text-sm text-gray-600">コメント</span>
     <div class="message mx-4 text-sm">
       <div v-for="(comment, index) in comments" :key="index" :comment="comment">
         <span class="font-bold">{{ comment.userName }}</span>
         <span>{{ comment.comment }}</span>
       </div>
     </div>
-    <div class="message mx-4 text-sm flex border-t border-gray-30">
+    <div class="message mx-4 text-sm flex justify-between border-t border-gray-30 p-3">
       <textarea
-          class="p-3"
+          class="p-3 w-4/5 outline-none resize-none"
           :rows="1"
           :cols="40"
           placeholder="コメントを追加"
           v-model="postComment"
       />
-      <button class="font-semibold text-blue-500" @click="setComment">投稿する</button>
+      <button class="font-semibold text-blue-500 " @click="setComment">投稿する</button>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -123,3 +123,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.content {
+  box-sizing: content-box;
+  margin: 1.5rem auto;
+  width: 600px;
+  outline: solid 1px #CDCDCF;
+  padding-top: 5px;
+}
+
+</style>
