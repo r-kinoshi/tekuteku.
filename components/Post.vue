@@ -61,8 +61,8 @@ export default {
       },
       likeCount: 0,
       beLiked: false,
-      comment: '',
-      postComment: '',
+      comment: null,
+      postComment: null,
       comments: []
     }
   },
@@ -78,9 +78,9 @@ export default {
       this.likeCount = snap.size
     })
 
-    this.commentRef.get()
-    .then((snapshot) => {
-      snapshot.forEach((doc) => {
+    this.commentRef.orderBy('createdAt').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc
         this.comments.push(doc.data())
       })
     })
@@ -110,6 +110,7 @@ export default {
         userId: this.currentUser.uid,
         createdAt: new Date().getTime()
       })
+      this.postComment = null
     }
   },
   computed: {
