@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="posts overflow-scroll z-0 mb-24">
-    <post v-for="(post, index) in posts" :key="index" :post="post" />
-  </div>
+    <div class="posts overflow-scroll z-0">
+      <post v-for="(post, index) in posts" :key="index" :post="post" />
+    </div>
   </div>
 </template>
 
@@ -31,3 +31,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.posts{
+  display: grid;
+  grid-template-columns:repeat(3, 1fr);
+  grid-gap: 1em;
+}
+
+>>>.post-desk {
+    margin:0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+>>>@media screen and (max-width: 480px) {
+  .post-desk{
+    margin:0;
+    min-width: 100px;
+  }
+}
+
+</style>
