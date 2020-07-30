@@ -124,7 +124,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .post-desk {
   width:40%;
   min-width: 320px;
