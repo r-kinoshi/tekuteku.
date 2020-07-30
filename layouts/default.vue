@@ -57,54 +57,26 @@ html {
   justify-content: center;
 }
 
-
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 20;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,.8);
-  opacity: 1;
-}
-
 .uploaded-image {
- max-height: 120px;
+  max-height: 120px;
 }
 
 .post-btn {
- padding: 4px 12px;
- border-radius: 24px;
- background-color: black;
- color: white;
- font-size: 12px;
- cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 24px;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 .el-upload {
- width: 100%;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 .el-button {
- width: 85%;
-}
-
-.modal-overlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 20;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,.8);
-  opacity: 1;
 }
 
 .close-btn {
@@ -123,4 +95,5 @@ html {
 .marginCenter {
   margin: 0 auto;
 }
+
 </style>
