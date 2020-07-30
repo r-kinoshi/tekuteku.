@@ -1,7 +1,7 @@
 <template>
 <div class="modal"> 
-  <div class="modal_content p-8 md:sm:w-1/4 h-hull bg-white z-20 rounded fixed my-0">
-    <div class="actions mt-4 flex justify-between px-8">
+  <div class="modal_content md:sm:w-1/4 h-hull bg-white z-30 rounded fixed my-0">
+    <div class="actions mt-4 flex justify-between px-8 items-start">
       <div class="back-btn vertical-middle">
         <img src="/images/back.svg" class="h-4" @click="closePost">
       </div>
@@ -12,7 +12,7 @@
     <div class="moda_content p-8">
       <div class="flex justify-center p-8">
         <input
-          class="shadow appearance-none border rounded py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="appearance-none border rounded py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none"
           type="text"
           placeholder="店舗名"
           @input="handleChange"
@@ -36,18 +36,20 @@
         :show-file-list="false"
         :http-request="uploadFile"
         >
-        <el-button size="small" type="primary">Click to upload</el-button>
+        <el-button size="small" type="primary">写真を選択</el-button>
       </el-upload>
       <div class="flex justify-center">
         <img :src="imageUrl" class="uploaded-image">
       </div>
+      <div class="px-8">
       <textarea
-        class="mt-8"
+        class="mt-8 resize-none w-full border rounded focus:outline-none p-2"
         :rows="5"
         :cols="40"
-        placeholder="please input"
+        placeholder="何か書く..."
         v-model="text"
       />
+      </div>
     </div>
   </div>
 </div>
@@ -139,3 +141,31 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  opacity: 1;
+}
+
+@media screen and (max-width: 480px) {
+  .modal { 
+    background: white;
+    position: fixed;
+    top: 0;
+  }
+  .moda_content {
+    padding: 0;
+  }
+}
+
+</style>
