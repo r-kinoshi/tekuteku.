@@ -3,7 +3,7 @@
    <div class="user flex justify-between px-8 my-8">
      <div class="flex">
        <div class="user-avatar mr-4">
-         <img :src="user.photoURL" class="w-12 h-12 rounded-full">
+         <img :src="user.photoURL" class="w-20 h-20 rounded-full border rounded-full border-solid border-gray-500">
        </div>
        <div class="user-name vertical-middle">
          <p>{{ user.displayName }}</p>
