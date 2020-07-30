@@ -31,7 +31,7 @@
     <div class="message mx-4 text-sm">
       <div v-for="(comment, index) in comments" :key="index" :comment="comment">
         <span class="font-bold">{{ comment.userName }}</span>
-        <span>{{ comment.comment }}</span>
+        <span class="break-all">{{ comment.comment }}</span>
       </div>
     </div>
     <div class="message mx-4 text-sm flex justify-between border-t border-gray-30 p-3">
