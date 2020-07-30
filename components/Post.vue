@@ -1,9 +1,9 @@
 <template>
-  <div class="content">
+  <div class="post-desk">
     <div class="user my-2 ml-4 flex" v-if="!isProfileMode">
       <div class="avatar mr-3 border rounded-full border-solid border-black">
         <nuxt-link :to="`/users/${user.id}`">
-          <img :src="user.photoURL" class="w-8 h-8 rounded-full" alt="">
+          <img :src="user.photoURL" class="user-image w-8 h-8 rounded-full" alt="">
         </nuxt-link>
       </div>
       <div class="user-name leading-loose text-sm">
@@ -12,11 +12,11 @@
        </nuxt-link>
       </div>
     </div>
-    <a class="font-bold px-4" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
-    <div class="post-image w-full">
+    <a class="post-desk__shop font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
+    <div class="post-desk__image">
       <img :src="post.image" alt="">
     </div>
-    <div class="actions my-2 ml-4 flex">
+    <div class="message my-2 ml-4 flex">
       <img v-if="beLiked" src='/images/heart_active.svg' @click="unlike" class="w-6 mr-3">
       <img v-else src='/images/heart.svg' @click="like" class="w-6 mr-3">
       <p>{{ likeCount }}</p>
@@ -42,9 +42,9 @@
           placeholder="コメントを追加"
           v-model="postComment"
       />
-      <button class="font-semibold text-blue-500 " @click="setComment">投稿する</button>
+      <button class="post-desk__post-cmt font-semibold text-blue-500 " @click="setComment">投稿する</button>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -125,12 +125,53 @@ export default {
 </script>
 
 <style>
-.content {
-  box-sizing: content-box;
+.post-desk {
+  width:40%;
+  min-width: 320px;
   margin: 1.5rem auto;
-  width: 600px;
   outline: solid 1px #CDCDCF;
   padding-top: 5px;
+  box-sizing: border-box;
+}
+
+.post-desk__post-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 1024px) {
+
+}
+@media screen and (max-width: 768px) {
+  .post-desk__post-cmt{
+    font-size:12px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .post-desk { 
+    width: 100vw;
+    min-width: 100vw;
+  }
+  .post-desk__image {
+    width: 100vw;
+  }
+  .user {
+    margin: 2%;
+  }
+  .post-desk__shop {
+    margin: 2%;
+  }
+  .message {
+    margin: 2%;
+    padding: 0;
+  }
+}
+@media screen and (max-width: 380px) {
+
+}
+@media screen and (max-width: 320px) {
+  
 }
 
 </style>
