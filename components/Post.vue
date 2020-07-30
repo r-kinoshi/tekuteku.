@@ -12,29 +12,29 @@
        </nuxt-link>
       </div>
     </div>
-    <a class="post-desk__shop font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
+    <a v-if="!isProfileMode" class="post-desk__shop font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
     <div class="post-desk__image">
       <img :src="post.image" alt="">
     </div>
-    <div class="message my-2 ml-4 flex">
+    <div v-if="!isProfileMode" class="message my-2 ml-4 flex">
       <img v-if="beLiked" src='/images/heart_active.svg' @click="unlike" class="w-6 mr-3">
       <img v-else src='/images/heart.svg' @click="like" class="w-6 mr-3">
       <p>{{ likeCount }}</p>
     </div>
-    <div class="message mx-4 text-sm">
+    <div v-if="!isProfileMode" class="message mx-4 text-sm">
       <nuxt-link :to="`/users/${user.id}`">
         <span class="font-bold">{{ user.displayName }}</span>
       </nuxt-link>
       <span>{{ post.text }}</span>
     </div>
-    <span class="message mx-4 text-sm text-gray-600">コメント</span>
-    <div class="message mx-4 text-sm">
+    <span v-if="!isProfileMode" class="message mx-4 text-sm text-gray-600">コメント</span>
+    <div v-if="!isProfileMode" class="message mx-4 text-sm">
       <div v-for="(comment, index) in comments" :key="index" :comment="comment">
         <span class="font-bold">{{ comment.userName }}</span>
         <span class="break-all">{{ comment.comment }}</span>
       </div>
     </div>
-    <div class="message mx-4 text-sm flex justify-between border-t border-gray-30 p-3">
+    <div v-if="!isProfileMode" class="message mx-4 text-sm flex justify-between border-t border-gray-30 p-3">
       <textarea
           class="p-3 w-4/5 outline-none resize-none"
           :rows="1"
@@ -126,7 +126,7 @@ export default {
 
 <style scoped>
 .post-desk {
-  width:40%;
+  width: 40%;
   min-width: 320px;
   margin: 1.5rem auto;
   outline: solid 1px #CDCDCF;
@@ -140,9 +140,6 @@ export default {
   height: auto;
 }
 
-@media screen and (max-width: 1024px) {
-
-}
 @media screen and (max-width: 768px) {
   .post-desk__post-cmt{
     font-size:12px;
@@ -166,12 +163,6 @@ export default {
     margin: 2%;
     padding: 0;
   }
-}
-@media screen and (max-width: 380px) {
-
-}
-@media screen and (max-width: 320px) {
-  
 }
 
 </style>
