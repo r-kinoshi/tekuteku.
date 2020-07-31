@@ -63,8 +63,16 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+   extend ( config, { isDev, isClient, isServer } ) {
+    if ( isServer ) {
+      config.externals = {
+        '@firebase/app': 'commonjs @firebase/app',
+        '@firebase/firestore': 'commonjs @firebase/firestore',
+        '@firebase/storage': 'commonjs @firebase/storage',
+        '@firebase/auth': 'commonjs @firebase/auth',
+      }
     }
+  }
   },
   env: {
     GNAVI_API_KEY,
