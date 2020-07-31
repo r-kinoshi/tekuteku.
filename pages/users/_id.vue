@@ -18,7 +18,7 @@
        <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
-       Following
+       <nuxt-link to="/users">Following</nuxt-link>
        </br>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
