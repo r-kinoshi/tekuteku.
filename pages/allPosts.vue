@@ -45,7 +45,7 @@ export default {
     box-sizing: border-box;
   }
 
->>>@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .post-desk{
     margin:0;
     min-width: 100px;
