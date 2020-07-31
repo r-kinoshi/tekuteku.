@@ -10,7 +10,8 @@
     "./components/**/*.vue", 
     "./plugins/**/*.vue",
     "./static/**/*.vue",
-    "./store/**/*.vue"
+    "./store/**/*.vue",
+    "./layouts/**/*.vue"
   ],
   theme: {},
   variants: {},
