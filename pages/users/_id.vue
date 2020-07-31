@@ -18,7 +18,7 @@
        <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
-       Following
+       <nuxt-link to="/users">Following</nuxt-link>
        </br>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
@@ -28,7 +28,9 @@
        <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
+   <div class="foo">
    <post v-for="post in posts" :key="post.id" :post="post" :mode="'profile'"/>
+   </div>
  </div>
 </template>
 
@@ -100,3 +102,31 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.foo{
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/deep/.post-desk {
+  box-sizing: border-box;
+  margin:0;
+  width: 33.333333%;
+  flex: 0 1 calc(100% / 3);
+  }
+
+@media screen and (max-width: 768px) {
+  .post-desk { 
+    width: 33.333333%;
+  }
+  .post-desk__image {
+    width: 33.333333%;
+  }
+}
+@media screen and (max-width: 480px) {
+
+}
+
+</style>
