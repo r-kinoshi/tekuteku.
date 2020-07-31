@@ -4,7 +4,7 @@
     <post v-for="(post, index) in posts" :key="index" :post="post" />
   </div>
   <div v-if="!isAuthenticated　&& modalVisible" class="modal-overlay">
-    <div class="modal_content p-8 md:sm:w-1/4 h-hull bg-white z-20 rounded fixed my-0">
+    <div class="modal_content p-8 h-hull bg-white z-20 rounded fixed my-0">
         <div class="close-btn" @click="modalVisible = false">
           <img src="/images/x (1).svg">
         </div>
@@ -123,6 +123,35 @@ export default {
 .list-item {
   min-width: 500px;
   width: 500px;
+}
+
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  opacity: 1;
+}
+
+.close-btn {
+  position: absolute;
+  z-index: 50;
+  top: -40px;
+  right: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  .modal_content{
+    width: 100vw;
+  }
 }
 
 </style>
