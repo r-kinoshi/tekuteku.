@@ -79,15 +79,6 @@ html {
   width: 100%;
 }
 
-.close-btn {
-  position: absolute;
-  z-index: 50;
-  top: -40px;
-  right: 0;
-  opacity: 1;
-  cursor: pointer;
-}
-
 .outline {
   outline: solid 1px #0000ff;
 }
@@ -95,19 +86,4 @@ html {
 .marginCenter {
   margin: 0 auto;
 }
-
-.modal-overlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 20;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,.8);
-  opacity: 1;
-}
-
 </style>
