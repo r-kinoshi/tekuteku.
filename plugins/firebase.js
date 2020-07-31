@@ -13,7 +13,7 @@ if (!firebase.apps.length) {
     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID
   }
-  
+
   firebase.initializeApp(firebaseConfig)
 }
 
