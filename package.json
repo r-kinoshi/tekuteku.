@@ -20,7 +20,8 @@
     "nuxt": "^2.14.0",
     "sass-loader": "^9.0.2",
     "throttle-debounce": "^2.2.1",
-    "webpack": "^4.36.0"
+    "webpack": "^4.36.0",
+    "elliptic": ">=6.5.3"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^2.1.1"
