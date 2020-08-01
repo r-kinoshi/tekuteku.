@@ -13,23 +13,26 @@
    </div>
    <div class="tab flex justify-around">
      <div class="post-count text-center">
-       Post
-       </br>
+       <p @click="mode = modes.posts">Post</p>
        <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
-       <nuxt-link to="/users">Following</nuxt-link>
-       </br>
+       <p @click="mode = modes.followings">Following</p>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
      <div class="text-center">
-       Follower
-       </br>
+       <p @click="mode = modes.follower">Follower</p>
        <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
-   <div class="foo">
-   <post v-for="post in posts" :key="post.id" :post="post" :mode="'profile'"/>
+   <div class="post" v-if="mode === modes.posts">
+    <post v-for="post in posts" :key="post.id" :post="post" :mode="'profile'"/>
+   </div>
+   <div v-else-if="mode === modes.followings">
+     <following />
+   </div>
+   <div v-else-if="mode === modes.follower">
+     <follower :followers="followers" />
    </div>
  </div>
 </template>
@@ -38,10 +41,15 @@
 import { firebase,db } from '~/plugins/firebase'
 import { mapActions } from 'vuex'
 import Post from '~/components/Post'
+import Following from '~/components/Following'
+import Follower from '~/components/Follower'
+
 
 export default {
   components: {
-    Post
+    Post,
+    Following,
+    Follower
   },
   data () {
     return {
@@ -51,7 +59,14 @@ export default {
         displayName: '',
         photoURL: ''
       },
-      posts: []
+      posts: [],
+      modes: {
+        posts: 'posts',
+        followings: 'followings',
+        followers: 'followers'
+      },
+      mode: 'posts',
+      followers: []
     }
   },
   methods: {
@@ -99,12 +114,18 @@ export default {
     this.fetchFollowingCount()
     this.fetchFollowerCount()
 
+    const userID = this.$route.params.id
+    const snap = await db.collection('users').doc(userID).collection('followers').get()
+    snap.forEach((doc) => {
+      this.followers.push(doc.data())
+    })
+
   }
 }
 </script>
 
 <style scoped>
-.foo{
+.post{
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
