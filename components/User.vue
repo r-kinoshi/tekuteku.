@@ -45,10 +45,18 @@ import { db } from '~/plugins/firebase'
     },
     methods: {
       async follow () {
-        await this.followingRef.set({user: this.user.id})
-        await this.followerRef.set({ user: this.currentUser.uid})
+        await this.followingRef.set({
+          user: this.user.id,
+          photoURL: this.user.photoURL,
+          displayName: this.user.displayName
+          })
+        await this.followerRef.set({ 
+          user: this.currentUser.uid,
+          photoURL: this.currentUser.photoURL,
+          displayName: this.currentUser.displayName
+          })
         this.followed = true
-     },
+      },
       async unfollow () {
         await this.followingRef.delete()
         await  this.followerRef.delete()
