@@ -13,15 +13,15 @@
    </div>
    <div class="tab flex justify-around">
      <div class="post-count text-center">
-       <p @click="mode = modes.posts">Post</p>
+       <p @click="mode = modes.posts" class="cursor-pointer">Post</p>
        <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
-       <p @click="mode = modes.followings">Following</p>
+       <p @click="mode = modes.followings" class="cursor-pointer">Following</p>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
      <div class="text-center">
-       <p @click="mode = modes.follower">Follower</p>
+       <p @click="mode = modes.follower" class="cursor-pointer">Follower</p>
        <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
