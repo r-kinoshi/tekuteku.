@@ -1,5 +1,6 @@
 <template>
   <div class="post-desk">
+    <post-details v-for="(postDetail, index) in postDetails" @like="like" @unlike="unlike" @likeSnap="likeSnap" @checkLikeStatus="checkLikeStatus" :key="index" :postDetail="postDetail" />
     <div class="user my-2 ml-4 flex" v-if="!isProfileMode">
       <div class="avatar mr-3 border rounded-full border-solid border-black">
         <nuxt-link :to="`/users/${user.id}`">
@@ -13,7 +14,7 @@
       </div>
     </div>
     <a v-if="!isProfileMode" class="post-desk__shop font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
-    <div class="post-desk__image">
+    <div class="post-desk__image" @click="modalPost">
       <img :src="post.image" alt="">
     </div>
     <div v-if="!isProfileMode" class="message my-2 ml-4 flex">
@@ -49,9 +50,13 @@
 
 <script>
 import { db } from '~/plugins/firebase'
+import PostDetails from '~/components/PostDetails'
 
 export default {
   props: ['post', 'mode'],
+  components: {
+    PostDetails
+  },
   data () {
     return {
       user: {
@@ -63,27 +68,18 @@ export default {
       beLiked: false,
       comment: null,
       postComment: null,
-      comments: []
+      comments: [],
+      postDetails: []
     }
   },
   async mounted () {
     this.likeRef = db.collection('posts').doc(this.post.id).collection('likes')
     this.checkLikeStatus()
+    this.fetchUser()
+    this.likeSnap()
 
     this.commentRef = db.collection('posts').doc(this.post.id).collection('comments')
-
-    this.fetchUser()
-
-    this.likeRef.onSnapshot((snap) => {
-      this.likeCount = snap.size
-    })
-
-    this.commentRef.orderBy('createdAt').onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        const doc = change.doc
-        this.comments.push(doc.data())
-      })
-    })
+    this.checkComment()
   },
   methods: {
     async fetchUser () {
@@ -103,6 +99,11 @@ export default {
       const doc = await this.likeRef.doc(this.currentUser.uid).get()
       this.beLiked = doc.exists
     },
+    likeSnap () {
+      this.likeRef.onSnapshot((snap) => {
+        this.likeCount = snap.size
+      })
+    },
     async setComment () {
       await this.commentRef.add({
         comment: this.postComment,
@@ -111,6 +112,21 @@ export default {
         createdAt: new Date().getTime()
       })
       this.postComment = null
+    },
+    async modalPost () {
+      const createdAt = this.post.createdAt
+      const snap = await db.collection('posts').where('createdAt', '==', createdAt).get()
+      snap.forEach((doc) => {
+        this.postDetails.push(doc.data())
+      })
+    },
+    async checkComment () {
+      await this.commentRef.orderBy('createdAt').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc
+        this.comments.push(doc.data())
+      })
+    })
     }
   },
   computed: {
