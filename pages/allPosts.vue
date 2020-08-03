@@ -49,11 +49,23 @@ export default {
   max-height:300px;
   }
 
-@media screen and (max-width: 480px) {
-  .post-desk{
-    margin:0;
-    min-width: 100px;
+@media screen and (max-width: 900px) {
+>>>.posts{
+    grid-template-columns:repeat(3, 300px);
+    justify-content: normal;
   }
+
+>>>.post-desk{
+    width: 300px;
+    margin: 7% 0;
+  }
+
+>>>.post-desk__imag{
+    width: 300px;
+  }
+}
+@media screen and (max-width: 480px) {
+  
 }
 
 </style>
