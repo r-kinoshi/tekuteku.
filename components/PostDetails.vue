@@ -1,7 +1,6 @@
-
 <template>
   <div>
-    <div class="post-up" @click="closePost">
+    <div class="post-up" @click.self="$emit('closePost')">
       <div class="post-up__content box-border h-auto bg-white z-30 rounded fixed my-0">
         <div class="user my-2 ml-4 flex">
           <div class="avatar mr-3 border rounded-full border-solid border-black">
@@ -87,9 +86,6 @@ export default {
     unlike () {
       this.$emit('unlike')
       this.beLiked = false
-    },
-    closePost () {
-      this.$emit('closePost')
     },
     async setComment () {
       await this.commentRef.add({
