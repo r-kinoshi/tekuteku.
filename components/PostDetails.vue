@@ -30,6 +30,23 @@
           </nuxt-link>
           <span>{{ postDetail.text }}</span>
         </div>
+        <span class="message mx-4 text-sm text-gray-600">コメント</span>
+        <div class="message mx-4 text-sm">
+          <div v-for="(comment, index) in comments" :key="index" :comment="comment">
+            <span class="font-bold">{{ comment.userName }}</span>
+            <span class="break-all">{{ comment.comment }}</span>
+          </div>
+        </div>
+        <div class="message mx-4 text-sm flex justify-between border-t border-gray-30 p-3">
+          <textarea
+              class="p-3 w-4/5 outline-none resize-none"
+              :rows="1"
+              :cols="40"
+              placeholder="コメントを追加"
+              v-model="postComment"
+          />
+          <button class="post-desk__post-cmt font-semibold text-blue-500 " @click="setComment">投稿する</button>
+        </div>
       </div>
     </div>
   </div>
@@ -48,7 +65,9 @@ export default {
         photoURL: ''
       },
       likeCount: 0,
-      beLiked: false
+      beLiked: false,
+      comments: [],
+      postComment: null
     }
   },
   async mounted () {
@@ -57,6 +76,8 @@ export default {
     this.user = { ...doc.data(), id: userId }
   
     this.$emit('likeSnap')
+    this.commentRef = db.collection('posts').doc(this.postDetail.createdAt).collection('comments')
+    this.checkComment()
   },
   methods: {
     like () {
@@ -69,6 +90,23 @@ export default {
     },
     closePost () {
       this.$emit('closePost')
+    },
+    async setComment () {
+      await this.commentRef.add({
+        comment: this.postComment,
+        userName: this.currentUser.displayName,
+        userId: this.currentUser.uid,
+        createdAt: new Date().getTime()
+      })
+      this.postComment = null
+    },
+    async checkComment () {
+      await this.commentRef.onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const doc = change.doc
+          this.comments.push(doc.data())
+        })
+      })
     }
   },
   computed: {
