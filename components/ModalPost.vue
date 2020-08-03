@@ -30,6 +30,9 @@
           </option>
         </datalist>
       </div>
+       <div class="flex justify-center">
+        <img :src="imageUrl" class="uploaded-image">
+      </div>
       <el-upload
         v-if="!imageUrl"
         action=""
@@ -38,9 +41,6 @@
         >
         <el-button size="small" type="primary">写真を選択</el-button>
       </el-upload>
-      <div class="flex justify-center">
-        <img :src="imageUrl" class="uploaded-image">
-      </div>
       <div class="px-8">
       <textarea
         class="mt-8 resize-none w-full border rounded focus:outline-none p-2"
@@ -89,13 +89,14 @@ export default {
     async post () {
       const restaurant = this.getRestaurantsByName(this.restaurantsName)
       this.restaurantsUrl = restaurant.url
+      let times = new Date().getTime()
 
-      await db.collection('posts').add({
+      await db.collection('posts').doc(times + '').set({
         text: this.text,
         image: this.imageUrl,
         restaurantsName: this.restaurantsName,
         restaurantsUrl: this.restaurantsUrl,
-        createdAt: new Date().getTime(),
+        createdAt: times + '',
         userId: this.currentUser.uid
       })
       this.$emit('update:modal', false)
@@ -131,12 +132,17 @@ export default {
       }
     },
     async uploadFile (data) {
-      const storageRef = firebase.storage().ref()
+      console.log('入った')
+      const storageRef = firebase.storage().ref()//refarence所得
+      console.log(storageRef)
       const time = new Date().getTime()
-      const ref = storageRef.child(`posts/${time}_${data.file.name}`)
-      const snapshot = await ref.put(data.file)
+      const ref = storageRef.child(`posts/${time}_${data.file.name}`)//uploadする場所
+      console.log(ref)
+      const snapshot = await ref.put(data.file)//putでjsのapi経由でcloudstrageにuploadできる
       const url = await snapshot.ref.getDownloadURL()
+      console.log(url)
       this.imageUrl = url
+      console.log(this.imageUrl)
     }
   }
 }
