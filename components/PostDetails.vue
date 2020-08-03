@@ -97,7 +97,7 @@ export default {
       this.postComment = null
     },
     async checkComment () {
-      await this.commentRef.onSnapshot((snapshot) => {
+      await this.commentRef.orderBy('createdt').onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           const doc = change.doc
           this.comments.push(doc.data())
