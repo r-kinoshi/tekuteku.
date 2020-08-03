@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class="posts overflow-scroll z-0">
-      <post v-for="(post, index) in posts" :key="index" :post="post" />
+  <div class="mb-12">
+    <div class="posts">
+      <post v-for="(post, index) in posts" :key="index" :post="post" :mode="'all'" />
     </div>
   </div>
 </template>
@@ -35,14 +35,18 @@ export default {
 <style scoped>
 .posts{
   display: grid;
-  grid-template-columns:repeat(3, 1fr);
-  grid-gap: 1em;
+  justify-content: space-evenly;
+  grid-template-columns:repeat(3, 33.333333%);
 }
 
 >>>.post-desk {
-    margin:0;
-    width: 100%;
+    margin: 7% auto;
     box-sizing: border-box;
+    padding:0;
+  }
+
+>>>.post-desk__image img{
+  max-height:300px;
   }
 
 @media screen and (max-width: 480px) {
