@@ -10,7 +10,7 @@
     <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
       <nuxt-link to="/allPosts"><img src="/images/search (3).svg" class="h-6 my-3"></nuxt-link>
     </div>
-    <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">
+    <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center cursor-pointer">
       <img src="/images/follow.svg" class="h-6 my-3" @click="postModal">
     </div>
      <div v-if="isAuthenticated" class="nav-item w-1/5 flex justify-center">

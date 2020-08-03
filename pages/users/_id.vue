@@ -11,17 +11,17 @@
      </div>
      <button v-if="isCurrentUser" class="text-sm" @click="logout">ログアウト</button>
    </div>
-   <div class="tab flex justify-around">
+   <div class="tab flex justify-around border-b mb-12">
      <div class="post-count text-center">
-       <p @click="mode = modes.posts">Post</p>
+       <p @click="mode = modes.posts" class="cursor-pointer">Post</p>
        <span class="text-xs">{{ posts.length }}</span>
      </div>
      <div class="text-center">
-       <p @click="mode = modes.followings">Following</p>
+       <p @click="mode = modes.followings" class="cursor-pointer">Following</p>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
      <div class="text-center">
-       <p @click="mode = modes.follower">Follower</p>
+       <p @click="mode = modes.follower" class="cursor-pointer">Follower</p>
        <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
@@ -126,16 +126,20 @@ export default {
 
 <style scoped>
 .post{
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-row-gap: 10%;
+  justify-content: space-evenly;
+  grid-template-columns:repeat(3, 33.333333%);
 }
 
-/deep/.post-desk {
-  box-sizing: border-box;
-  margin:0;
-  width: 33.333333%;
-  flex: 0 1 calc(100% / 3);
+>>>.post-desk {
+    margin:0 auto;
+    box-sizing: border-box;
+    padding:0;
+  }
+
+>>>.post-desk__image img{
+  max-height:300px;
   }
 
 @media screen and (max-width: 768px) {
