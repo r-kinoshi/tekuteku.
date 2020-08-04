@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="top-navigation bg-white ctop-0 h-12 w-full border-b border-gray-400">
+    <header class="top-navigation bg-white top-0 h-12 w-full border-b border-gray-400 z-50">
       <div class="header-logo">
         <nuxt-link to="/">tekuteku.</nuxt-link>
       </div>
@@ -8,7 +8,7 @@
         <span v-if="!isAuthenticated" class="header-login__btn" @click="openModal">ログイン</span>
       </div>
     </header>
-    <div class="flex justify-center border-b fixed border-gray-300 z-0">
+    <div class="flex justify-center border-b border-gray-300 z-0 mt-12">
      <div class="logo">
        <img src="/images/tekuteku_top.png">
      </div>
