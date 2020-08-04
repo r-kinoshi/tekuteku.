@@ -33,39 +33,43 @@ export default {
 </script>
 
 <style scoped>
-.posts{
+.posts　{
   display: grid;
   justify-content: space-evenly;
   grid-template-columns:repeat(3, 33.333333%);
-}
+  }
 
 >>>.post-desk {
     margin: 7% auto;
     box-sizing: border-box;
     padding:0;
+    outline: none;
   }
 
->>>.post-desk__image img{
-  max-height:300px;
+>>>.post-desk__image img　{
+    max-height:300px;
   }
 
 @media screen and (max-width: 900px) {
->>>.posts{
-    grid-template-columns:repeat(3, 300px);
+  .posts {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: normal;
   }
 
->>>.post-desk{
-    width: 300px;
-    margin: 7% 0;
+>>>.post-desk {
+    width: 100%;
+    margin: 3% 0;
+    min-width: 100vw;
   }
 
->>>.post-desk__imag{
+>>>.post-desk__image {
     width: 300px;
+    margin:0 auto;
+  }
+
+>>>.post-up__content {
+    width: 100%;
+    min-width: 100vw;
   }
 }
-@media screen and (max-width: 480px) {
-  
-}
-
 </style>
