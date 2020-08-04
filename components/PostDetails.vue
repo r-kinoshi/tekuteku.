@@ -24,7 +24,7 @@
           <p>{{ likeCount }}</p>
         </div>
         <div class="message mx-4 text-sm">
-          <nuxt-link :to="`/users/${user.userID}`">
+          <nuxt-link :to="`/users/${user.uid}`">
             <span class="font-bold">{{ user.displayName }}</span>
           </nuxt-link>
           <span>{{ postDetail.text }}</span>
