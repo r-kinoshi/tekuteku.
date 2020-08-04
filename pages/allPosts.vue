@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-12">
+  <div class="posts-desk">
     <div class="posts">
       <post v-for="(post, index) in posts" :key="index" :post="post" :mode="'all'" />
     </div>
@@ -33,38 +33,77 @@ export default {
 </script>
 
 <style scoped>
-.posts　{
+.posts-desk{
+  width: 1000px;
+  margin:0 auto;
+  box-sizing: border-box;
+}
+
+.posts {
   display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-gap: 1vw 3vw;
   justify-content: space-evenly;
-  grid-template-columns:repeat(3, 33.333333%);
-  }
+  overflow: hidden;
+  margin-bottom: 10%;
+}
 
 >>>.post-desk {
-    margin: 7% auto;
-    box-sizing: border-box;
-    padding:0;
-    outline: none;
+  outline: none;
+}
+
+>>>.post-colums {
+  grid-column: span 4;
+  max-height:300px;
+}
+
+>>>.post-desk__image img{
+  max-height:300px;
   }
 
->>>.post-desk__image img　{
-    max-height:300px;
+@media screen and (max-width: 960px) {
+  .posts-desk{
+    width:100%;
   }
 
-@media screen and (max-width: 900px) {
-  .posts {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  .posts{
     justify-content: normal;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  >>>.post-desk {
+    margin:0;
+  }
+
+  >>>.post-desk__image img{
+    width: 250px;
+  }
+
+  >>>.post-colums {
+  grid-column: span 4;
+  max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .posts {
+    grid-template-rows: none;
+  }
+
+>>>.post-colums {
+    grid-column: span 4;
+    max-height: 130px;
+  }
+
+>>>.post-desk__image img{
+    width:120px;
   }
 
 >>>.post-desk {
-    width: 100%;
-    margin: 3% 0;
-    min-width: 100vw;
-  }
-
->>>.post-desk__image {
-    width: 300px;
-    margin:0 auto;
+    max-height:300px;
   }
 
 >>>.post-up__content {
@@ -72,4 +111,14 @@ export default {
     min-width: 100vw;
   }
 }
+
+@media screen and (max-width: 340px) {
+>>>.post-desk__image img{
+    width:100px;
+  }
+>>>.post-colums {
+    max-height: 120px;
+  }
+}
+
 </style>

@@ -159,7 +159,7 @@ export default {
     width:100%;
   }
 
->>>.post{
+  .post{
     justify-content: normal;
     grid-template-rows: auto 1fr;
   }
@@ -181,7 +181,7 @@ export default {
 }
 
 @media screen and (max-width: 700px) {
->>>.post {
+  .post {
     grid-template-rows: none;
   }
 
