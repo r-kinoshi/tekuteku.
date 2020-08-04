@@ -15,7 +15,7 @@
           </div>
         </div>
         <a class="post-desk__shop font-bold ml-4 break-all" :href="postDetail.restaurantsUrl" target="_blank">{{ postDetail.restaurantsName }}</a>
-        <div class="post-desk__image">
+        <div class="post-desk__img">
           <img :src="postDetail.image" alt="">
         </div>
         <div class="message my-2 ml-4 flex">
@@ -132,12 +132,18 @@ export default {
   width: 25%;
 }
 
-.post-desk__image img{
+.post-desk__img img{
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   max-height:500px;
   height : auto;
+}
+
+@media screen and (max-width: 1360px) {
+  .post-up__content {
+    width: 50%;
+  }
 }
 
 </style>
