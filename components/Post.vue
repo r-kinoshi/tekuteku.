@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="post-colums">
     <div v-if="postUp && isProfileMode ||postUp && isAllMode">
       <post-details v-for="(postDetail, index) in postDetails" @like="like" @unlike="unlike" @likeSnap="likeSnap" @checkLikeStatus="checkLikeStatus" @closePost="closePost" :key="index" :postDetail="postDetail" />
     </div>

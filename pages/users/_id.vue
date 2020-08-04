@@ -1,5 +1,5 @@
 <template>
- <div class="mb-32">
+ <div class="user-container mb-32">
    <div class="user flex justify-between px-8 my-8">
      <div class="flex">
        <div class="user-avatar mr-4">
@@ -11,7 +11,7 @@
      </div>
      <button v-if="isCurrentUser" class="text-sm" @click="logout">ログアウト</button>
    </div>
-   <div class="tab flex justify-around border-b mb-12">
+   <div class="tab flex justify-around border-b">
      <div class="post-count text-center">
        <p @click="mode = modes.posts" class="cursor-pointer">Post</p>
        <span class="text-xs">{{ posts.length }}</span>
@@ -125,33 +125,92 @@ export default {
 </script>
 
 <style scoped>
+.user-container{
+  width: 1000px;
+  margin:0 auto;
+  box-sizing: border-box;
+}
+
 .post{
   display: grid;
-  grid-row-gap: 10%;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-gap: 1vw 3vw;
   justify-content: space-evenly;
-  grid-template-columns:repeat(3, 33.333333%);
+  overflow: hidden;
+  margin-bottom: 10%;
 }
 
 >>>.post-desk {
-    margin:0 auto;
-    box-sizing: border-box;
-    padding:0;
-  }
+  outline: none;
+}
+
+>>>.post-colums {
+  grid-column: span 4;
+  max-height:300px;
+}
 
 >>>.post-desk__image img{
   max-height:300px;
   }
 
-@media screen and (max-width: 768px) {
-  .post-desk { 
-    width: 33.333333%;
+@media screen and (max-width: 960px) {
+  .user-container{
+    width:100%;
   }
-  .post-desk__image {
-    width: 33.333333%;
+
+>>>.post{
+    justify-content: normal;
+    grid-template-rows: auto 1fr;
   }
 }
-@media screen and (max-width: 480px) {
 
+@media screen and (max-width: 800px) {
+  >>>.post-desk {
+    margin:0;
+  }
+
+  >>>.post-desk__image img{
+    width: 250px;
+  }
+
+  >>>.post-colums {
+  grid-column: span 4;
+  max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+>>>.post {
+    grid-template-rows: none;
+  }
+
+>>>.post-colums {
+    grid-column: span 4;
+    max-height: 130px;
+  }
+
+>>>.post-desk__image img{
+    width:120px;
+  }
+
+>>>.post-desk {
+    max-height:300px;
+  }
+
+>>>.post-up__content {
+    width: 100%;
+    min-width: 100vw;
+  }
+}
+
+@media screen and (max-width: 340px) {
+>>>.post-desk__image img{
+    width:100px;
+  }
+>>>.post-colums {
+    max-height: 120px;
+  }
 }
 
 </style>
