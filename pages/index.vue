@@ -8,7 +8,7 @@
         <span v-if="!isAuthenticated" class="header-login__btn" @click="openModal">ログイン</span>
       </div>
     </header>
-    <div class="flex justify-center border-b border-gray-300 z-0 mt-12">
+    <div class="flex justify-center border-b border-gray-300 z-0">
      <div class="logo">
        <img src="/images/tekuteku_top.png">
      </div>

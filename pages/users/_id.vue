@@ -9,7 +9,9 @@
          <p>{{ user.displayName }}</p>
        </div>
      </div>
-     <button v-if="isCurrentUser" class="text-sm" @click="logout">ログアウト</button>
+     <div class="logout-wrapper">
+      <button v-if="isCurrentUser" class="logout" @click="logout">ログアウト</button>
+     </div>
    </div>
    <div class="tab flex justify-around border-b">
      <div class="post-count text-center">
@@ -154,6 +156,31 @@ export default {
   max-height:300px;
   }
 
+
+.logout-wrappre{
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.logout {
+  display: inline-block;
+  height: 2.4rem;
+  line-height: 2.2rem;
+  padding: 0 0.5em;
+  /* vertical-align: middle; */
+  color: #D9DADA;
+  background-color: transparent;
+  border: 1px solid currentColor;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.logout:hover {
+  text-decoration: none;
+  color: #C7C7C7;
+  opacity: 0.85;
+}
+
 @media screen and (max-width: 960px) {
   .user-container{
     width:100%;
@@ -202,6 +229,10 @@ export default {
     width: 100%;
     min-width: 100vw;
   }
+
+  .user {
+    padding-right: 1rem;
+  }
 }
 
 @media screen and (max-width: 340px) {
@@ -210,6 +241,9 @@ export default {
   }
 >>>.post-colums {
     max-height: 120px;
+  }
+  .user {
+    padding-left: 1rem;
   }
 }
 
