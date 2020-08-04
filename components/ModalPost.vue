@@ -132,17 +132,12 @@ export default {
       }
     },
     async uploadFile (data) {
-      console.log('入った')
-      const storageRef = firebase.storage().ref()//refarence所得
-      console.log(storageRef)
+      const storageRef = firebase.storage().ref()
       const time = new Date().getTime()
-      const ref = storageRef.child(`posts/${time}_${data.file.name}`)//uploadする場所
-      console.log(ref)
-      const snapshot = await ref.put(data.file)//putでjsのapi経由でcloudstrageにuploadできる
+      const ref = storageRef.child(`posts/${time}_${data.file.name}`)
+      const snapshot = await ref.put(data.file)
       const url = await snapshot.ref.getDownloadURL()
-      console.log(url)
       this.imageUrl = url
-      console.log(this.imageUrl)
     }
   }
 }
