@@ -54,7 +54,7 @@
     - https://github.com/rica441/tekuteku.Development-log
     
 ## 課題
-- Vue.js/Nuxt.jsに知識が０の状態でスタートし、期日に間に合わせることを意識した結果、テストが書けなかったので
+- Vue.js/Nuxt.jsの知識が０の状態でスタートし、期日に間に合わせることを意識した結果、テストが書けなかったので
 JESTやVisual regression testでテストする
 - いいねした投稿を表示
 - 全ユーザーの投稿から、キーワード検索する機能
