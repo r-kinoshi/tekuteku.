@@ -10,7 +10,8 @@
     </header>
     <div class="flex justify-center border-b border-gray-300 z-0">
      <div class="logo">
-       <img src="/images/tekuteku_top.png">
+       <img class="top_desk" src="/images/tekuteku_top.png">
+       <img class="top_mb" src="/images/tekuteku_top2.png">
      </div>
    </div>
    <posts ref="posts"/>
@@ -76,5 +77,19 @@ export default {
 .header-login__btn:hover {
   text-decoration: none;
   opacity: 0.85;
+}
+
+.top_mb {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .top_desk {
+    display: none;
+  }
+
+  .top_mb {
+    display: inline;
+  }
 }
 </style>
