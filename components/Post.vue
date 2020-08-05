@@ -110,11 +110,13 @@ export default {
       })
     },
     async setComment () {
+      let time = new Date().getTime()
+
       await this.commentRef.add({
         comment: this.postComment,
         userName: this.currentUser.displayName,
         userId: this.currentUser.uid,
-        createdAt: new Date().getTime()
+        createdAt: time + ''
       })
       this.postComment = null
     },
