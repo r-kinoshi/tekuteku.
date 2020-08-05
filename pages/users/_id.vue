@@ -87,7 +87,7 @@ export default {
       firebase.auth().signOut()
         .then(() => {
           this.setUser(null)
-          location.href = "http://localhost:3000/"
+          location.href = "/"
         })
         .catch((error) => {
           window.alert(error)
