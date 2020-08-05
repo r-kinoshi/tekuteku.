@@ -1,12 +1,16 @@
 <template>
-  <div class="user p-4 flex justify-between">
+  <div class="user py-2 px-4">
     <div v-for="(follower, index) in followers" :key="index" :follower="follower">
-      <div class="user-info flex">
+      <div class="user-info flex mt-4">
         <div class="avatar mr-4">
+          <nuxt-link :to="`/users/${follower.user}`">
             <img :src="follower.photoURL" class="w-12 h-12 rounded-full">
+          </nuxt-link>
         </div>
         <div class="displayName vertical-middle">
-          <p>{{ follower.displayName }}</p>
+          <nuxt-link :to="`/users/${follower.user}`">
+            <p>{{ follower.displayName }}</p>
+          </nuxt-link>
         </div>
       </div>
     </div>
