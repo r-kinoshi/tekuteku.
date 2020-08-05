@@ -2,6 +2,9 @@
   <div>
     <div class="post-up" @click.self="$emit('closePost')">
       <div class="post-up__content box-border h-auto bg-white z-30 rounded fixed my-0">
+        <div class="back-btn p-2 border border-solid">
+          <img src="/images/back.svg" class="back-point h-5 cursor-pointer" @click.self="$emit('closePost')">
+        </div>
         <div class="user my-2 ml-4 flex">
           <div class="avatar mr-3 border rounded-full border-solid border-black">
             <nuxt-link :to="`/users/${user.id}`">
@@ -146,4 +149,13 @@ export default {
   }
 }
 
+@media screen and (max-width: 480px) {
+.back-btn {
+  padding: 0.25rem;
+}
+
+.back-point {
+  height: 1rem;
+}
+}
 </style>
