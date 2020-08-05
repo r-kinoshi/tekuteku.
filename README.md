@@ -2,6 +2,8 @@
 テイクアウトしたお店と写真、感想を共有するSNSです。
 かんたんログインから会員登録なしでログインできます。
 
+[URL] https://tekuteku.vercel.app/
+
 <img width="1421" alt="スクリーンショット 2020-08-06 0 24 06" src="https://user-images.githubusercontent.com/58762157/89431922-7c9f8600-d77b-11ea-9cc5-c38411b0888f.png">
 
 ## 機能一覧
