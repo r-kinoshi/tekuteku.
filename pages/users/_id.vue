@@ -14,16 +14,16 @@
      </div>
    </div>
    <div class="tab flex justify-around border-b">
-     <div class="post-count text-center">
-       <p @click="mode = modes.posts" class="cursor-pointer">Post</p>
+     <div class="post-count text-center w-1/3" :class="[ mode === modes.posts ? 'selectStyle' : 'nonStyle' ]">
+       <p @click="mode = modes.posts" class="cursor-pointer mt-1">Post</p>
        <span class="text-xs">{{ posts.length }}</span>
      </div>
-     <div class="text-center">
-       <p @click="mode = modes.followings" class="cursor-pointer">Following</p>
+     <div class="text-center w-1/3" :class="[ mode === modes.followings ? 'selectStyle' : 'nonStyle' ]">
+       <p @click="mode = modes.followings" class="cursor-pointer mt-1">Following</p>
        <span class="text-xs">{{ followingCount }}</span>
      </div>
-     <div class="text-center">
-       <p @click="mode = modes.follower" class="cursor-pointer">Follower</p>
+     <div class="text-center w-1/3" :class="[ mode === modes.follower ? 'selectStyle' : 'nonStyle' ]">
+       <p @click="mode = modes.follower" class="cursor-pointer mt-1">Follower</p>
        <span class="text-xs">{{ followerCount }}</span>
      </div>
    </div>
@@ -127,13 +127,13 @@ export default {
 </script>
 
 <style scoped>
-.user-container{
+.user-container {
   width: 1000px;
   margin:0 auto;
   box-sizing: border-box;
 }
 
-.post{
+.post {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto 1fr;
@@ -141,6 +141,14 @@ export default {
   justify-content: space-evenly;
   overflow: hidden;
   margin-bottom: 10%;
+}
+
+.selectStyle {
+  background: #F7F6F6;
+}
+
+.nonStyle {
+  background: #fff;
 }
 
 >>>.post-desk {
@@ -157,7 +165,7 @@ export default {
   }
 
 
-.logout-wrappre{
+.logout-wrappre {
   margin: 10px auto;
   cursor: pointer;
 }
@@ -182,11 +190,11 @@ export default {
 }
 
 @media screen and (max-width: 960px) {
-  .user-container{
+  .user-container {
     width:100%;
   }
 
-  .post{
+  .post {
     justify-content: normal;
     grid-template-rows: auto 1fr;
   }
