@@ -1,7 +1,7 @@
 <template>
 <div class="post-colums">
     <div v-if="postUp && isProfileMode ||postUp && isAllMode">
-      <post-details v-for="(postDetail, index) in postDetails" @like="like" @unlike="unlike" @likeSnap="likeSnap" @checkLikeStatus="checkLikeStatus" @closePost="closePost" :key="index" :postDetail="postDetail" />
+      <post-details v-for="(postDetail, index) in postDetails" @like="like" @unlike="unlike" @likeSnap="likeSnap" @checkLikeStatus="checkLikeStatus" @close-post="closePost" :key="index" :postDetail="postDetail" />
     </div>
   <div class="post-desk">
     <div class="user my-2 ml-4 flex" v-if="!isProfileMode && !isAllMode">
