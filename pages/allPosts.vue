@@ -80,6 +80,7 @@ export default {
 
   >>>.post-desk__image img{
     width: 250px;
+    max-height: 250px;
   }
 
   >>>.post-colums {
@@ -100,6 +101,7 @@ export default {
 
 >>>.post-desk__image img{
     width:120px;
+    max-height:110px;
   }
 
 >>>.post-desk {
@@ -115,10 +117,13 @@ export default {
 @media screen and (max-width: 340px) {
 >>>.post-desk__image img{
     width:100px;
+    max-height: 100px;
   }
+
 >>>.post-colums {
     max-height: 120px;
   }
+
 }
 
 </style>
