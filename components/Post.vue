@@ -176,6 +176,10 @@ export default {
   .post-desk__post-cmt{
     font-size:12px;
   }
+
+  .post-desk__image{
+    max-height: 238px;
+  }
 }
 @media screen and (max-width: 480px) {
   .post-desk { 
@@ -184,6 +188,7 @@ export default {
   }
   .post-desk__image {
     width: 100vw;
+    max-height: 100px;
   }
   .user {
     margin: 2%;

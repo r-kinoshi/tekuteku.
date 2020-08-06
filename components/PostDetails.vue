@@ -2,7 +2,7 @@
   <div>
     <div class="post-up" @click.self="$emit('closePost')">
       <div class="post-up__content box-border h-auto bg-white z-30 rounded fixed my-0">
-        <div class="back-btn p-2 border border-solid">
+        <div class="back-btn p-2 border border-solid　border rounded">
           <img src="/images/back.svg" class="back-point h-5 cursor-pointer" @click.self="$emit('closePost')">
         </div>
         <div class="user my-2 ml-4 flex">
@@ -149,6 +149,16 @@ export default {
   .post-up__content {
     width: 50%;
   }
+
+  .post-desk__img img{
+    max-height:450px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .post-desk__img img{
+    max-height:400px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -159,5 +169,9 @@ export default {
 .back-point {
   height: 1rem;
 }
+
+ .post-desk__img img{
+    max-height:280px;
+  }
 }
 </style>
