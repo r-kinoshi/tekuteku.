@@ -80,12 +80,12 @@ export default {
 
   >>>.post-desk__image img{
     width: 250px;
-    max-height: 250px;
+    max-height: 240px;
   }
 
   >>>.post-colums {
-  grid-column: span 4;
-  max-width: 250px;
+    grid-column: span 4;
+    max-width: 250px;
   }
 }
 
@@ -101,7 +101,7 @@ export default {
 
 >>>.post-desk__image img{
     width:120px;
-    max-height:110px;
+    max-height:100px;
   }
 
 >>>.post-desk {
@@ -117,7 +117,7 @@ export default {
 @media screen and (max-width: 340px) {
 >>>.post-desk__image img{
     width:100px;
-    max-height: 100px;
+    max-height: 97px;
   }
 
 >>>.post-colums {

@@ -246,7 +246,7 @@ export default {
 
 @media screen and (max-width: 340px) {
 >>>.post-desk__image img{
-    width:100px;
+    width: 97px;
   }
 >>>.post-colums {
     max-height: 120px;

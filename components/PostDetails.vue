@@ -162,6 +162,7 @@ export default {
 }
 
 @media screen and (max-width: 480px) {
+
 .back-btn {
   padding: 0.25rem;
 }
@@ -171,7 +172,20 @@ export default {
 }
 
  .post-desk__img img{
+    max-height:400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post-desk__img img{
+    max-height:400px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .post-desk__img img{
     max-height:280px;
   }
 }
+
 </style>
