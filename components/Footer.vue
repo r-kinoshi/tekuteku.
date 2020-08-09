@@ -42,7 +42,7 @@ export default {
     return {
       modal: false,
       userPlus: false,
-      homeImg: '/images/home.svg',
+      homeImg: '/images/home-pink.svg',
       searchImg: '/images/search (3).svg',
       followImg: '/images/follow.svg',
       userImg: '/images/user-plus.svg',
