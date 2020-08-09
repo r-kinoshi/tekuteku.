@@ -163,6 +163,7 @@ export default {
 
 >>>.post-desk__image img{
   max-height:300px;
+  cursor: pointer;
   }
 
 
@@ -176,7 +177,6 @@ export default {
   height: 2.4rem;
   line-height: 2.2rem;
   padding: 0 0.5em;
-  /* vertical-align: middle; */
   color: #D9DADA;
   background-color: transparent;
   border: 1px solid currentColor;

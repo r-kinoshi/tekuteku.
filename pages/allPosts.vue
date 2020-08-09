@@ -60,6 +60,7 @@ export default {
 
 >>>.post-desk__image img{
   max-height:300px;
+  cursor: pointer;
   }
 
 @media screen and (max-width: 960px) {
