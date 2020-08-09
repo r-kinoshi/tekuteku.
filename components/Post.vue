@@ -184,7 +184,6 @@ export default {
   }
   .post-desk__image {
     width: 100vw;
-    max-height: 100px;
   }
   .user {
     margin: 2%;
