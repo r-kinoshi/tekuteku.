@@ -26,11 +26,10 @@
             :key="r.id"
             :value="r.name"
           >
-        {{ r.name }}
           </option>
         </datalist>
       </div>
-       <div class="flex justify-center">
+      <div class="flex justify-center">
         <img :src="imageUrl" class="uploaded-image">
       </div>
       <el-upload
@@ -86,9 +85,51 @@ export default {
     }
   },
   methods: {
+    handleChange: throttle(1000, async function (e) {
+      this.fetching = true
+      const name = e.data
+      const urlParams = new URLSearchParams()
+      urlParams.append('keyid' ,process.env.GNAVI_API_KEY)
+      urlParams.append('name', name)
+      const res = await fetch(
+        `https://api.gnavi.co.jp/RestSearchAPI/v3/?${urlParams.toString()}`
+      )
+      this.fetching = false
+      if (res.ok) {
+        const { rest } = await res.json()
+        this.restaurants = rest
+      }
+      else if (res.ok === false){
+        this.restaurants = null
+      }
+    }),
+    getRestaurantsByName (name) {
+      if (this.restaurants === null) {
+        return this.restaurantsName
+      }
+      for(let r in this.restaurants) {
+      const restaurant = this.restaurants[r]
+        if (restaurant.name == name){
+          return restaurant
+        }
+      }
+    },
+    async uploadFile (data) {
+      const storageRef = firebase.storage().ref()
+      const time = new Date().getTime()
+      const ref = storageRef.child(`posts/${time}_${data.file.name}`)
+      const snapshot = await ref.put(data.file)
+      const url = await snapshot.ref.getDownloadURL()
+      this.imageUrl = url
+    },
     async post () {
       const restaurant = this.getRestaurantsByName(this.restaurantsName)
-      this.restaurantsUrl = restaurant.url
+      if (restaurant.url === undefined) {
+        this.restaurantsUrl = null
+      }
+      else { 
+        this.restaurantsUrl = restaurant.url
+      }
       let times = new Date().getTime()
 
       await db.collection('posts').doc(times + '').set({
@@ -107,37 +148,6 @@ export default {
     },
     closePost () {
       this.$emit('update:modal', false)
-    },
-    handleChange: throttle(1000, async function (e) {
-      this.fetching = true
-      const name = e.data
-      const urlParams = new URLSearchParams()
-      urlParams.append('keyid' ,process.env.GNAVI_API_KEY)
-      urlParams.append('name', name)
-      const res = await fetch(
-        `https://api.gnavi.co.jp/RestSearchAPI/v3/?${urlParams.toString()}`
-      )
-      this.fetching = false
-      if (res.ok) {
-        const { rest } = await res.json()
-        this.restaurants = rest
-      }
-    }),
-    getRestaurantsByName (name) {
-      for(let r in this.restaurants) {
-      const restaurant = this.restaurants[r]
-        if (restaurant.name == name){
-          return restaurant
-        }
-      }
-    },
-    async uploadFile (data) {
-      const storageRef = firebase.storage().ref()
-      const time = new Date().getTime()
-      const ref = storageRef.child(`posts/${time}_${data.file.name}`)
-      const snapshot = await ref.put(data.file)
-      const url = await snapshot.ref.getDownloadURL()
-      this.imageUrl = url
     }
   }
 }
