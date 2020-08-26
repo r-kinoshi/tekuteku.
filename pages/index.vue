@@ -10,8 +10,8 @@
     </header>
     <div class="flex justify-center border-b border-gray-300 z-0">
      <div class="logo">
-       <img class="top_desk" src="/images/tekuteku_top.png">
-       <img class="top_mb" src="/images/tekuteku_top2.png">
+       <img class="top_desk" src="/images/tekuteku.png">
+       <img class="top_mb" src="/images/tekuteku_mobile.png">
      </div>
    </div>
    <posts ref="posts"/>
