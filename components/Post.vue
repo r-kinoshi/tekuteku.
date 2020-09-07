@@ -16,7 +16,9 @@
        </nuxt-link>
       </div>
     </div>
-    <a v-if="!isProfileMode && !isAllMode" class="post-desk__shop font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
+    <div class="my-2 post-desk__shop-table">
+      <a v-if="!isProfileMode && !isAllMode" class="post-desk__shop-title font-bold ml-4 break-all" :href="post.restaurantsUrl" target="_blank">{{ post.restaurantsName }}</a>
+    </div>
     <div class="post-desk__image" @click="modalPost">
       <img :src="post.image" alt="">
     </div>
@@ -160,7 +162,7 @@ export default {
   min-width: 320px;
   margin: 1.5rem auto;
   outline: solid 1px #CDCDCF;
-  padding-top: 5px;
+  padding-top: 1px;
   box-sizing: border-box;
 }
 
@@ -170,6 +172,10 @@ export default {
   max-width: 100%;
   max-height:500px;
   height : auto;
+}
+
+.post-desk__shop-table {
+  line-height:18px;
 }
 
 @media screen and (max-width: 768px) {
@@ -188,7 +194,7 @@ export default {
   .user {
     margin: 2%;
   }
-  .post-desk__shop {
+  .post-desk__shop-title {
     margin: 2%;
   }
   .message {
