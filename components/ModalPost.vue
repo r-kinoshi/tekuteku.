@@ -3,7 +3,7 @@
   <div class="modal_content md:sm:w-1/4 h-hull bg-white z-30 rounded fixed my-0">
     <div class="actions mt-4 flex justify-between px-8 items-start">
       <div class="back-btn vertical-middle">
-        <img src="/images/back.svg" class="h-4" @click="closePost">
+        <img src="/images/back.svg" class="h-4 cursor-pointer" @click="closePost">
       </div>
       <div class="post-btn" @click="post">
         シェア
