@@ -7,14 +7,18 @@
         </div>
         <div class="user my-2 ml-4 flex">
           <div class="avatar mr-3 border rounded-full border-solid border-black">
-            <nuxt-link :to="`/users/${user.id}`">
+            <nuxt-link :to="`/users/${user.id}`" v-if="isAuthenticated">
               <img :src="user.photoURL" class="user-image w-8 h-8 rounded-full" alt="">
             </nuxt-link>
+            <span v-if="!isAuthenticated">
+              <img :src="user.photoURL" class="user-image w-8 h-8 rounded-full" alt="">
+            </span>
           </div>
           <div class="user-name leading-loose text-sm">
-            <nuxt-link :to="`/users/${user.id}`">
+            <nuxt-link :to="`/users/${user.id}`" v-if="isAuthenticated">
               <p class="font-bold">{{ user.displayName }}</p>
-          </nuxt-link>
+            </nuxt-link>
+            <p v-if="!isAuthenticated" class="font-bold">{{ user.displayName }}</p>
           </div>
         </div>
         <a class="post-desk__shop font-bold ml-4 break-all" :href="postDetail.restaurantsUrl" target="_blank">{{ postDetail.restaurantsName }}</a>
@@ -27,9 +31,10 @@
           <p>{{ likeCount }}</p>
         </div>
         <div class="message mx-4 text-sm">
-          <nuxt-link :to="`/users/${user.uid}`">
+          <nuxt-link :to="`/users/${user.uid}`" v-if="isAuthenticated">
             <span class="font-bold">{{ user.displayName }}</span>
           </nuxt-link>
+          <span  v-if="!isAuthenticated" class="font-bold">{{ user.displayName }}</span>
           <span>{{ postDetail.text }}</span>
         </div>
         <span class="message mx-4 text-sm text-gray-600">コメント</span>
@@ -113,6 +118,9 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.user
+    },
+    isAuthenticated () {
+      return this.$store.getters.isAuthenticated
     }
   }
 }
