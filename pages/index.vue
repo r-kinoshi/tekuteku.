@@ -14,17 +14,22 @@
        <img class="top_mb" src="/images/tekuteku_mobile.png">
      </div>
    </div>
-   <posts ref="posts"/>
+   <div>
+    <div v-if="!isAuthenticated"><homePosts ref="homePosts" /></div>
+    <posts ref="posts"/>
+   </div>
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
 import Posts from '~/components/Posts.vue'
+import homePosts from '~/components/homePosts.vue'
 
 export default {
   components: {
-   Posts
+   Posts,
+   homePosts
   },
   computed: {
     isAuthenticated () {
